@@ -1,56 +1,67 @@
 'use client';
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Link from 'next/link';
+import { PageHeader } from '@/components/shared/page-header';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Button } from '@/components/ui/button';
 
-const faqData = [
-    {
-        question: "Jakie są dostępne metody płatności?",
-        answer: "Akceptujemy płatności kartami kredytowymi i debetowymi (Visa, Mastercard), przelewy bankowe, BLIK oraz płatność przy odbiorze."
-    },
-    {
-        question: "Ile wynosi czas oczekiwania na zamówienie?",
-        answer: "Standardowy czas dostawy wynosi od 3 do 5 dni roboczych. Oferujemy również dostawę ekspresową w ciągu 1-2 dni roboczych za dodatkową opłatą."
-    },
-    {
-        question: "Czy mogę zwrócić produkt, jeśli mi się nie spodoba?",
-        answer: "Oczywiście! Masz 30 dni na zwrot produktu bez podawania przyczyny. Produkt nie może nosić śladów użytkowania i powinien być zwrócony w oryginalnym opakowaniu."
-    },
-    {
-        question: "Jak mogę śledzić swoje zamówienie?",
-        answer: "Po wysłaniu zamówienia otrzymasz od nas e-mail z linkiem do śledzenia przesyłki. Możesz również sprawdzić status zamówienia w panelu klienta w sekcji 'Moje zamówienia'."
-    },
-    {
-        question: "Czy oferujecie gwarancję na produkty?",
-        answer: "Tak, wszystkie nasze produkty objęte są 2-letnią gwarancją producenta. Szczegółowe informacje na temat gwarancji znajdziesz w opisie każdego produktu."
-    },
-    {
-        question: "Czy jest możliwość montażu mebli?",
-        answer: "Niektóre z naszych produktów wymagają montażu. Do każdego z nich dołączona jest szczegółowa instrukcja. Obecnie nie oferujemy usługi montażu, ale planujemy wprowadzić ją w przyszłości."
-    }
-]
+const groups = [
+  {
+    title: 'Zamówienia i płatności',
+    items: [
+      { q: 'Jakie metody płatności są dostępne?', a: 'BLIK, karta (Visa, Mastercard, Apple Pay), Przelewy24 oraz płatność przy odbiorze do 4000 zł. Raty 0% do 12 miesięcy uruchamiasz w kasie.' },
+      { q: 'Czy mogę zmienić zamówienie po złożeniu?', a: 'Tak, jeśli nie zostało jeszcze spakowane. Napisz na pomoc@buynest.pl lub zadzwoń 800 123 456 — zwykle odpowiadamy w godzinę.' },
+      { q: 'Czy otrzymam fakturę VAT?', a: 'Tak. W kasie zaznacz „Chcę fakturę na firmę” i podaj NIP. Faktura trafia na e-mail w ciągu 24 h od wysyłki.' },
+    ],
+  },
+  {
+    title: 'Dostawa',
+    items: [
+      { q: 'Ile trwa dostawa?', a: 'Standardowo 2–4 dni robocze, ekspresowa 1–2 dni. Meble na zamówienie: około 3 tygodni — termin widzisz na karcie produktu.' },
+      { q: 'Czy dostawa jest darmowa?', a: 'Dla zamówień powyżej 2500 zł dostawa jest bezpłatna, łącznie z wniesieniem. Poniżej tej kwoty koszt wynosi 49 zł.' },
+      { q: 'Czy kurier wniesie meble do mieszkania?', a: 'Tak, standardowa dostawa obejmuje wniesienie do pomieszczenia. Montaż oferujemy gratis w Warszawie, Krakowie, Wrocławiu i Gdańsku.' },
+    ],
+  },
+  {
+    title: 'Zwroty i gwarancja',
+    items: [
+      { q: 'Ile mam czasu na zwrot?', a: '60 dni od otrzymania przesyłki, bez podawania przyczyny. Odbiór organizujemy sami — zgłaszasz zwrot w panelu klienta.' },
+      { q: 'Jaka jest gwarancja?', a: '5 lat na konstrukcję mebli i 2 lata na oświetlenie. Przez 10 lat wysyłamy części zamienne do naszych modeli.' },
+      { q: 'Co jeśli produkt dotarł uszkodzony?', a: 'Zrób zdjęcia i zgłoś reklamację w panelu. Nowy element wysyłamy w 48 h, a uszkodzony odbieramy na nasz koszt.' },
+    ],
+  },
+];
 
-export default function FAQPage() {
-    return (
-        <div className="container py-12 md:py-16">
-            <div className="text-center mb-12">
-                <h1 className="text-4xl font-bold tracking-tight">Często zadawane pytania (FAQ)</h1>
-                <p className="mt-2 text-lg text-muted-foreground">
-                    Znajdź odpowiedzi na najczęściej zadawane pytania.
-                </p>
-            </div>
+export default function FaqPage() {
+  return (
+    <div>
+      <PageHeader
+        title="Najczęstsze pytania"
+        description="Zebraliśmy odpowiedzi na pytania, które dostajemy najczęściej. Nie znalazłeś swojego? Napisz do nas."
+        breadcrumbs={[{ href: '/faq', label: 'FAQ' }]}
+      />
+      <div className="container max-w-4xl space-y-8 py-10 md:py-14">
+        {groups.map((group) => (
+          <section key={group.title}>
+            <h2 className="mb-3 text-lg font-semibold">{group.title}</h2>
+            <Accordion type="single" collapsible className="rounded-lg border bg-card px-4">
+              {group.items.map((item) => (
+                <AccordionItem key={item.q} value={item.q}>
+                  <AccordionTrigger className="text-left text-sm font-medium">{item.q}</AccordionTrigger>
+                  <AccordionContent className="text-sm text-muted-foreground">{item.a}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </section>
+        ))}
 
-            <div className="max-w-3xl mx-auto">
-                <Accordion type="single" collapsible className="w-full">
-                    {faqData.map((item, index) => (
-                        <AccordionItem value={`item-${index}`} key={index}>
-                            <AccordionTrigger className="text-left font-semibold text-lg">{item.question}</AccordionTrigger>
-                            <AccordionContent className="text-muted-foreground">
-                                {item.answer}
-                            </AccordionContent>
-                        </AccordionItem>
-                    ))}
-                </Accordion>
-            </div>
+        <div className="flex flex-col items-start justify-between gap-3 rounded-lg border bg-muted/40 p-5 sm:flex-row sm:items-center">
+          <p className="text-sm">Nadal masz pytanie? Nasz zespół odpowiada w 24 godziny.</p>
+          <Button asChild>
+            <Link href="/contact">Napisz do nas</Link>
+          </Button>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

@@ -1,90 +1,95 @@
 'use client';
 
-import React, { createContext, useState, useEffect, useContext, useCallback } from 'react';
-import Cookies from 'js-cookie';
-import { Product } from '@/lib/types';
-import { useToast } from '@/hooks/use-toast';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { toast } from '@/hooks/use-toast';
+import { productBySlug } from '@/lib/catalog';
+import { readStorage, writeStorage } from '@/lib/storage';
+import type { Product } from '@/lib/types';
 
-interface WishlistContextType {
+const WISHLIST_KEY = 'buynest.wishlist.v2';
+
+type WishlistContextValue = {
   wishlist: Product[];
-  addToWishlist: (product: Product) => void;
-  removeFromWishlist: (productId: string) => void;
-  isInWishlist: (productId: string) => boolean;
   itemCount: number;
-}
+  addToWishlist: (product: Product) => void;
+  removeFromWishlist: (slug: string) => void;
+  toggleWishlist: (product: Product) => void;
+  isInWishlist: (slug: string) => boolean;
+  isReady: boolean;
+};
 
-const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
+const WishlistContext = createContext<WishlistContextValue | undefined>(undefined);
 
-const WISHLIST_COOKIE_KEY = 'buynest-ui-wishlist';
-
-export const WishlistProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [wishlist, setWishlist] = useState<Product[]>([]);
-  const { toast } = useToast();
+export const WishlistProvider = ({ children }: { children: React.ReactNode }) => {
+  const [slugs, setSlugs] = useState<string[]>([]);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    const wishlistFromCookie = Cookies.get(WISHLIST_COOKIE_KEY);
-    if (wishlistFromCookie) {
-       try {
-        setWishlist(JSON.parse(wishlistFromCookie));
-      } catch (e) {
-        console.error("Failed to parse wishlist from cookie", e);
-        setWishlist([]);
-      }
-    }
+    setSlugs(readStorage<string[]>(WISHLIST_KEY, []));
+    setIsReady(true);
   }, []);
 
-  const updateCookie = (updatedWishlist: Product[]) => {
-    Cookies.set(WISHLIST_COOKIE_KEY, JSON.stringify(updatedWishlist), { expires: 30 });
-  };
+  useEffect(() => {
+    if (!isReady) return;
+    writeStorage(WISHLIST_KEY, slugs);
+  }, [slugs, isReady]);
+
+  const wishlist = useMemo(
+    () => slugs.flatMap((slug) => {
+      const product = productBySlug.get(slug);
+      return product ? [product] : [];
+    }),
+    [slugs],
+  );
+
+  const isInWishlist = useCallback((slug: string) => slugs.includes(slug), [slugs]);
 
   const addToWishlist = useCallback((product: Product) => {
-    setWishlist(prevWishlist => {
-      if (prevWishlist.some(item => item.id === product.id)) {
-        return prevWishlist;
-      }
-      const updatedWishlist = [...prevWishlist, product];
-      updateCookie(updatedWishlist);
-      toast({
-        title: "Dodano do listy życzeń",
-        description: `${product.name} został dodany do Twojej listy życzeń.`,
-      });
-      return updatedWishlist;
-    });
-  }, [toast]);
-
-  const removeFromWishlist = useCallback((productId: string) => {
-    setWishlist(prevWishlist => {
-      const updatedWishlist = prevWishlist.filter(item => item.id !== productId);
-      updateCookie(updatedWishlist);
-      return updatedWishlist;
-    });
+    setSlugs((current) => (current.includes(product.slug) ? current : [product.slug, ...current]));
+    toast({ title: 'Dodano do listy życzeń', description: product.name });
   }, []);
 
-  const isInWishlist = useCallback((productId: string) => {
-    return wishlist.some(item => item.id === productId);
-  }, [wishlist]);
+  const removeFromWishlist = useCallback((slug: string) => {
+    setSlugs((current) => current.filter((item) => item !== slug));
+  }, []);
 
-  const itemCount = wishlist.length;
-
-  return (
-    <WishlistContext.Provider
-      value={{
-        wishlist,
-        addToWishlist,
-        removeFromWishlist,
-        isInWishlist,
-        itemCount,
-      }}
-    >
-      {children}
-    </WishlistContext.Provider>
+  const toggleWishlist = useCallback(
+    (product: Product) => {
+      if (slugs.includes(product.slug)) {
+        removeFromWishlist(product.slug);
+        toast({ title: 'Usunięto z listy życzeń', description: product.name });
+        return;
+      }
+      addToWishlist(product);
+    },
+    [slugs, addToWishlist, removeFromWishlist],
   );
+
+  const value = useMemo(
+    () => ({
+      wishlist,
+      itemCount: wishlist.length,
+      addToWishlist,
+      removeFromWishlist,
+      toggleWishlist,
+      isInWishlist,
+      isReady,
+    }),
+    [wishlist, addToWishlist, removeFromWishlist, toggleWishlist, isInWishlist, isReady],
+  );
+
+  return <WishlistContext.Provider value={value}>{children}</WishlistContext.Provider>;
 };
 
 export const useWishlist = () => {
   const context = useContext(WishlistContext);
-  if (context === undefined) {
-    throw new Error('useWishlist must be used within a WishlistProvider');
-  }
+  if (!context) throw new Error('useWishlist musi być użyty wewnątrz WishlistProvider');
   return context;
 };

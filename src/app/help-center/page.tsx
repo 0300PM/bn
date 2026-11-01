@@ -1,89 +1,60 @@
-'use client';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { ArrowRight, CreditCard, Package, RefreshCcw, Ruler, Truck } from 'lucide-react';
+import { PageHeader } from '@/components/shared/page-header';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { LifeBuoy } from "lucide-react";
+export const metadata: Metadata = {
+  title: 'Centrum pomocy',
+  description: 'Dostawa, zwroty, płatności i wymiary mebli — wszystkie odpowiedzi w jednym miejscu.',
+};
 
-const helpSchema = z.object({
-  name: z.string().min(2, "Imię jest wymagane."),
-  email: z.string().email("Nieprawidłowy adres email."),
-  orderId: z.string().optional(),
-  message: z.string().min(10, "Wiadomość musi mieć co najmniej 10 znaków."),
-});
+const topics = [
+  { icon: Truck, title: 'Dostawa', text: 'Terminy, koszty i wniesienie mebli.', href: '/shipping-returns' },
+  { icon: RefreshCcw, title: 'Zwroty i reklamacje', text: '60 dni na zwrot, odbiór po naszej stronie.', href: '/shipping-returns' },
+  { icon: CreditCard, title: 'Płatności', text: 'BLIK, karty, Przelewy24 i raty 0%.', href: '/faq' },
+  { icon: Ruler, title: 'Wymiary i materiały', text: 'Specyfikacje produktów i próbki tkanin.', href: '/shop' },
+  { icon: Package, title: 'Zamówienie', text: 'Status, zmiany i faktury.', href: '/dashboard/orders' },
+];
 
 export default function HelpCenterPage() {
-    const form = useForm<z.infer<typeof helpSchema>>({
-        resolver: zodResolver(helpSchema),
-        defaultValues: {
-            name: "",
-            email: "",
-            orderId: "",
-            message: "",
-        },
-    });
-
-    function onSubmit(values: z.infer<typeof helpSchema>) {
-        console.log("Help request:", values);
-        alert("Twoje zapytanie zostało wysłane. Skontaktujemy się z Tobą wkrótce!");
-        form.reset();
-    }
-
-    return (
-        <div className="container py-12 md:py-16">
-            <div className="max-w-xl mx-auto">
-                <Card>
-                    <CardHeader className="text-center">
-                        <LifeBuoy className="mx-auto h-12 w-12 text-primary" />
-                        <CardTitle className="mt-4">Centrum Pomocy</CardTitle>
-                        <CardDescription>
-                            Masz problem lub pytanie? Wypełnij formularz poniżej, a nasz zespół wsparcia skontaktuje się z Tobą najszybciej jak to możliwe.
-                        </CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                                    <FormField control={form.control} name="name" render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Twoje imię</FormLabel>
-                                            <FormControl><Input {...field} /></FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}/>
-                                    <FormField control={form.control} name="email" render={({ field }) => (
-                                        <FormItem>
-                                            <FormLabel>Twój e-mail</FormLabel>
-                                            <FormControl><Input {...field} /></FormControl>
-                                            <FormMessage />
-                                        </FormItem>
-                                    )}/>
-                                </div>
-                                <FormField control={form.control} name="orderId" render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Numer zamówienia (opcjonalnie)</FormLabel>
-                                        <FormControl><Input placeholder="np. BUN-123456789" {...field} /></FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}/>
-                                <FormField control={form.control} name="message" render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Jak możemy Ci pomóc?</FormLabel>
-                                        <FormControl><Textarea rows={6} placeholder="Opisz swój problem lub pytanie..." {...field} /></FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}/>
-                                <Button type="submit" className="w-full">Wyślij zapytanie</Button>
-                            </form>
-                        </Form>
-                    </CardContent>
-                </Card>
-            </div>
+  return (
+    <div>
+      <PageHeader
+        title="Centrum pomocy"
+        description="Wybierz temat, a znajdziesz konkretną odpowiedź bez czekania na infolinię."
+        breadcrumbs={[{ href: '/help-center', label: 'Centrum pomocy' }]}
+      />
+      <div className="container py-10 md:py-14">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {topics.map((topic) => (
+            <Link key={topic.title} href={topic.href} className="group">
+              <Card className="h-full transition hover:border-foreground/20 hover:shadow-sm">
+                <CardContent className="space-y-2 p-5">
+                  <topic.icon className="h-5 w-5 text-accent" />
+                  <h2 className="font-semibold">{topic.title}</h2>
+                  <p className="text-sm text-muted-foreground">{topic.text}</p>
+                  <p className="flex items-center gap-1 text-xs font-medium text-accent">
+                    Czytaj więcej <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
+                  </p>
+                </CardContent>
+              </Card>
+            </Link>
+          ))}
+          <Card className="bg-primary/20">
+            <CardContent className="flex h-full flex-col justify-between gap-3 p-5">
+              <div>
+                <h2 className="font-semibold">Porozmawiaj z doradcą</h2>
+                <p className="text-sm text-muted-foreground">pon.–pt. 9:00–18:00, sob. 10:00–14:00</p>
+              </div>
+              <Button asChild variant="outline" className="w-fit bg-background">
+                <Link href="/contact">Kontakt</Link>
+              </Button>
+            </CardContent>
+          </Card>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

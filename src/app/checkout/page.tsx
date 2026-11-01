@@ -1,24 +1,25 @@
-'use client';
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
+import { CheckoutForm } from '@/components/checkout/checkout-form';
+import { Skeleton } from '@/components/ui/skeleton';
 
-import { useCart } from '@/contexts/cart-context';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
+export const metadata: Metadata = {
+  title: 'Kasa',
+  robots: { index: false, follow: false },
+};
 
 export default function CheckoutPage() {
-    const { cart } = useCart();
-    const router = useRouter();
-
-    useEffect(() => {
-        if (cart.length > 0) {
-            router.replace('/checkout/summary');
-        } else {
-            router.replace('/cart');
-        }
-    }, [cart, router]);
-
-    return (
-        <div className="flex items-center justify-center py-12">
-            <p>Przekierowywanie do kasy...</p>
-        </div>
-    );
+  return (
+    <div className="container max-w-6xl py-8 md:py-12">
+      <header className="mb-8">
+        <h1 className="text-2xl font-bold tracking-tight md:text-3xl">Finalizacja zamówienia</h1>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Dostawa w 2–4 dni robocze · 60 dni na zwrot · bezpłatna infolinia 800 123 456
+        </p>
+      </header>
+      <Suspense fallback={<Skeleton className="h-[500px] w-full" />}>
+        <CheckoutForm />
+      </Suspense>
+    </div>
+  );
 }

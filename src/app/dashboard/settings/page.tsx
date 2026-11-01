@@ -1,124 +1,83 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/auth-context';
-import { Separator } from '@/components/ui/separator';
-
-const accountSchema = z.object({
-  name: z.string().min(2, 'Imię musi mieć co najmniej 2 znaki.'),
-  email: z.string().email('Nieprawidłowy adres email.'),
-});
-
-const passwordSchema = z.object({
-  currentPassword: z.string().min(1, "Aktualne hasło jest wymagane."),
-  newPassword: z.string().min(8, 'Nowe hasło musi mieć co najmniej 8 znaków.'),
-  confirmPassword: z.string().min(8, 'Potwierdzenie hasła musi mieć co najmniej 8 znaków.'),
-}).refine((data) => data.newPassword === data.confirmPassword, {
-  message: "Hasła muszą być takie same.",
-  path: ["confirmPassword"],
-});
+import { toast } from '@/hooks/use-toast';
 
 export default function SettingsPage() {
-    const { user } = useAuth();
+  const { user, updateProfile } = useAuth();
+  const [form, setForm] = useState({
+    name: user?.name ?? '',
+    email: user?.email ?? '',
+    phone: user?.phone ?? '',
+    city: user?.city ?? '',
+  });
 
-    const accountForm = useForm<z.infer<typeof accountSchema>>({
-        resolver: zodResolver(accountSchema),
-        defaultValues: {
-            name: user?.name || '',
-            email: user?.email || '',
-        },
-    });
+  const update = (key: keyof typeof form) => (event: React.ChangeEvent<HTMLInputElement>) =>
+    setForm((current) => ({ ...current, [key]: event.target.value }));
 
-    const passwordForm = useForm<z.infer<typeof passwordSchema>>({
-        resolver: zodResolver(passwordSchema),
-        defaultValues: {
-            currentPassword: '',
-            newPassword: '',
-            confirmPassword: '',
-        },
-    });
+  return (
+    <div className="space-y-4">
+      <header>
+        <h1 className="text-2xl font-bold tracking-tight">Ustawienia konta</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Dane kontaktowe i preferencje zakupowe.</p>
+      </header>
 
-    const onAccountSubmit = (values: z.infer<typeof accountSchema>) => {
-        console.log('Account update:', values);
-        alert('Dane konta zaktualizowane!');
-    };
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Dane osobowe</CardTitle>
+          <CardDescription>Używamy ich do potwierdzeń zamówień i kontaktu z kurierem.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form
+            className="grid gap-4 sm:grid-cols-2"
+            onSubmit={(event) => {
+              event.preventDefault();
+              updateProfile(form);
+              toast({ title: 'Dane zapisane' });
+            }}
+          >
+            <div className="space-y-1.5">
+              <Label htmlFor="name">Imię i nazwisko</Label>
+              <Input id="name" value={form.name} onChange={update('name')} />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="email">E-mail</Label>
+              <Input id="email" type="email" value={form.email} onChange={update('email')} />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="phone">Telefon</Label>
+              <Input id="phone" value={form.phone} onChange={update('phone')} placeholder="+48 600 000 000" />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="city">Miasto</Label>
+              <Input id="city" value={form.city} onChange={update('city')} />
+            </div>
+            <div className="sm:col-span-2">
+              <Button type="submit">Zapisz zmiany</Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
 
-    const onPasswordSubmit = (values: z.infer<typeof passwordSchema>) => {
-        console.log('Password change attempt');
-        alert('Hasło zostało zmienione!');
-        passwordForm.reset();
-    };
-
-    return (
-        <div className="space-y-8">
-            <Card>
-                <CardHeader>
-                    <CardTitle>Ustawienia konta</CardTitle>
-                    <CardDescription>Zaktualizuj swoje dane osobowe.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <Form {...accountForm}>
-                        <form onSubmit={accountForm.handleSubmit(onAccountSubmit)} className="space-y-4">
-                            <FormField control={accountForm.control} name="name" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Imię i nazwisko</FormLabel>
-                                    <FormControl><Input {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )} />
-                            <FormField control={accountForm.control} name="email" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Email</FormLabel>
-                                    <FormControl><Input type="email" {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )} />
-                            <Button type="submit">Zapisz zmiany</Button>
-                        </form>
-                    </Form>
-                </CardContent>
-            </Card>
-
-            <Card>
-                <CardHeader>
-                    <CardTitle>Zmień hasło</CardTitle>
-                    <CardDescription>Pamiętaj, aby używać silnego, unikalnego hasła.</CardDescription>
-                </CardHeader>
-                <CardContent>
-                     <Form {...passwordForm}>
-                        <form onSubmit={passwordForm.handleSubmit(onPasswordSubmit)} className="space-y-4">
-                            <FormField control={passwordForm.control} name="currentPassword" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Aktualne hasło</FormLabel>
-                                    <FormControl><Input type="password" {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )} />
-                            <FormField control={passwordForm.control} name="newPassword" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Nowe hasło</FormLabel>
-                                    <FormControl><Input type="password" {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )} />
-                             <FormField control={passwordForm.control} name="confirmPassword" render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Potwierdź nowe hasło</FormLabel>
-                                    <FormControl><Input type="password" {...field} /></FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )} />
-                            <Button type="submit">Zmień hasło</Button>
-                        </form>
-                    </Form>
-                </CardContent>
-            </Card>
-        </div>
-    );
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-base">Bezpieczeństwo</CardTitle>
+          <CardDescription>Zmiana hasła i wylogowanie ze wszystkich urządzeń.</CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-wrap gap-2">
+          <Button variant="outline" onClick={() => toast({ title: 'Link do zmiany hasła wysłany' })}>
+            Zmień hasło
+          </Button>
+          <Button variant="outline" onClick={() => toast({ title: 'Wylogowano pozostałe urządzenia' })}>
+            Wyloguj inne urządzenia
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

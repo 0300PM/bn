@@ -1,0 +1,1322 @@
+[
+  {
+    "model": "aurora",
+    "colorIndex": 0,
+    "color": "Jasny szary",
+    "slug": "aurora-jasny-szary",
+    "files": {
+      "main": "/products/aurora-jasny-szary-main.jpg",
+      "detail": "/products/aurora-jasny-szary-detail.jpg",
+      "styled": "/products/aurora-jasny-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "aurora",
+    "colorIndex": 1,
+    "color": "Butelkowa zieleń",
+    "slug": "aurora-butelkowa-zielen",
+    "files": {
+      "main": "/products/aurora-butelkowa-zielen-main.jpg",
+      "detail": "/products/aurora-butelkowa-zielen-detail.jpg",
+      "styled": "/products/aurora-butelkowa-zielen-styled.jpg"
+    }
+  },
+  {
+    "model": "aurora",
+    "colorIndex": 2,
+    "color": "Kremowy bouclé",
+    "slug": "aurora-kremowy-boucl",
+    "files": {
+      "main": "/products/aurora-kremowy-boucl-main.jpg",
+      "detail": "/products/aurora-kremowy-boucl-detail.jpg",
+      "styled": "/products/aurora-kremowy-boucl-styled.jpg"
+    }
+  },
+  {
+    "model": "aurora",
+    "colorIndex": 3,
+    "color": "Głęboki granat",
+    "slug": "aurora-gleboki-granat",
+    "files": {
+      "main": "/products/aurora-gleboki-granat-main.jpg",
+      "detail": "/products/aurora-gleboki-granat-detail.jpg",
+      "styled": "/products/aurora-gleboki-granat-styled.jpg"
+    }
+  },
+  {
+    "model": "aurora",
+    "colorIndex": 4,
+    "color": "Terakota",
+    "slug": "aurora-terakota",
+    "files": {
+      "main": "/products/aurora-terakota-main.jpg",
+      "detail": "/products/aurora-terakota-detail.jpg",
+      "styled": "/products/aurora-terakota-styled.jpg"
+    }
+  },
+  {
+    "model": "nova",
+    "colorIndex": 0,
+    "color": "Piaskowy",
+    "slug": "nova-piaskowy",
+    "files": {
+      "main": "/products/nova-piaskowy-main.jpg",
+      "detail": "/products/nova-piaskowy-detail.jpg",
+      "styled": "/products/nova-piaskowy-styled.jpg"
+    }
+  },
+  {
+    "model": "nova",
+    "colorIndex": 1,
+    "color": "Stalowy błękit",
+    "slug": "nova-stalowy-blekit",
+    "files": {
+      "main": "/products/nova-stalowy-blekit-main.jpg",
+      "detail": "/products/nova-stalowy-blekit-detail.jpg",
+      "styled": "/products/nova-stalowy-blekit-styled.jpg"
+    }
+  },
+  {
+    "model": "nova",
+    "colorIndex": 2,
+    "color": "Grafit",
+    "slug": "nova-grafit",
+    "files": {
+      "main": "/products/nova-grafit-main.jpg",
+      "detail": "/products/nova-grafit-detail.jpg",
+      "styled": "/products/nova-grafit-styled.jpg"
+    }
+  },
+  {
+    "model": "nova",
+    "colorIndex": 3,
+    "color": "Musztardowy",
+    "slug": "nova-musztardowy",
+    "files": {
+      "main": "/products/nova-musztardowy-main.jpg",
+      "detail": "/products/nova-musztardowy-detail.jpg",
+      "styled": "/products/nova-musztardowy-styled.jpg"
+    }
+  },
+  {
+    "model": "nova",
+    "colorIndex": 4,
+    "color": "Oliwkowy",
+    "slug": "nova-oliwkowy",
+    "files": {
+      "main": "/products/nova-oliwkowy-main.jpg",
+      "detail": "/products/nova-oliwkowy-detail.jpg",
+      "styled": "/products/nova-oliwkowy-styled.jpg"
+    }
+  },
+  {
+    "model": "lumen",
+    "colorIndex": 0,
+    "color": "Jasny beż",
+    "slug": "lumen-jasny-bez",
+    "files": {
+      "main": "/products/lumen-jasny-bez-main.jpg",
+      "detail": "/products/lumen-jasny-bez-detail.jpg",
+      "styled": "/products/lumen-jasny-bez-styled.jpg"
+    }
+  },
+  {
+    "model": "lumen",
+    "colorIndex": 1,
+    "color": "Ciemny szary",
+    "slug": "lumen-ciemny-szary",
+    "files": {
+      "main": "/products/lumen-ciemny-szary-main.jpg",
+      "detail": "/products/lumen-ciemny-szary-detail.jpg",
+      "styled": "/products/lumen-ciemny-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "lumen",
+    "colorIndex": 2,
+    "color": "Zielony aksamit",
+    "slug": "lumen-zielony-aksamit",
+    "files": {
+      "main": "/products/lumen-zielony-aksamit-main.jpg",
+      "detail": "/products/lumen-zielony-aksamit-detail.jpg",
+      "styled": "/products/lumen-zielony-aksamit-styled.jpg"
+    }
+  },
+  {
+    "model": "lumen",
+    "colorIndex": 3,
+    "color": "Niebieski",
+    "slug": "lumen-niebieski",
+    "files": {
+      "main": "/products/lumen-niebieski-main.jpg",
+      "detail": "/products/lumen-niebieski-detail.jpg",
+      "styled": "/products/lumen-niebieski-styled.jpg"
+    }
+  },
+  {
+    "model": "lumen",
+    "colorIndex": 4,
+    "color": "Ecru",
+    "slug": "lumen-ecru",
+    "files": {
+      "main": "/products/lumen-ecru-main.jpg",
+      "detail": "/products/lumen-ecru-detail.jpg",
+      "styled": "/products/lumen-ecru-styled.jpg"
+    }
+  },
+  {
+    "model": "modulo",
+    "colorIndex": 0,
+    "color": "Popielaty",
+    "slug": "modulo-popielaty",
+    "files": {
+      "main": "/products/modulo-popielaty-main.jpg",
+      "detail": "/products/modulo-popielaty-detail.jpg",
+      "styled": "/products/modulo-popielaty-styled.jpg"
+    }
+  },
+  {
+    "model": "modulo",
+    "colorIndex": 1,
+    "color": "Kremowy",
+    "slug": "modulo-kremowy",
+    "files": {
+      "main": "/products/modulo-kremowy-main.jpg",
+      "detail": "/products/modulo-kremowy-detail.jpg",
+      "styled": "/products/modulo-kremowy-styled.jpg"
+    }
+  },
+  {
+    "model": "modulo",
+    "colorIndex": 2,
+    "color": "Szary melanż",
+    "slug": "modulo-szary-melanz",
+    "files": {
+      "main": "/products/modulo-szary-melanz-main.jpg",
+      "detail": "/products/modulo-szary-melanz-detail.jpg",
+      "styled": "/products/modulo-szary-melanz-styled.jpg"
+    }
+  },
+  {
+    "model": "modulo",
+    "colorIndex": 3,
+    "color": "Głęboki granat",
+    "slug": "modulo-gleboki-granat",
+    "files": {
+      "main": "/products/modulo-gleboki-granat-main.jpg",
+      "detail": "/products/modulo-gleboki-granat-detail.jpg",
+      "styled": "/products/modulo-gleboki-granat-styled.jpg"
+    }
+  },
+  {
+    "model": "modulo",
+    "colorIndex": 4,
+    "color": "Rdzawy",
+    "slug": "modulo-rdzawy",
+    "files": {
+      "main": "/products/modulo-rdzawy-main.jpg",
+      "detail": "/products/modulo-rdzawy-detail.jpg",
+      "styled": "/products/modulo-rdzawy-styled.jpg"
+    }
+  },
+  {
+    "model": "orbit",
+    "colorIndex": 0,
+    "color": "Kremowy bouclé",
+    "slug": "orbit-kremowy-boucl",
+    "files": {
+      "main": "/products/orbit-kremowy-boucl-main.jpg",
+      "detail": "/products/orbit-kremowy-boucl-detail.jpg",
+      "styled": "/products/orbit-kremowy-boucl-styled.jpg"
+    }
+  },
+  {
+    "model": "orbit",
+    "colorIndex": 1,
+    "color": "Jasny szary",
+    "slug": "orbit-jasny-szary",
+    "files": {
+      "main": "/products/orbit-jasny-szary-main.jpg",
+      "detail": "/products/orbit-jasny-szary-detail.jpg",
+      "styled": "/products/orbit-jasny-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "orbit",
+    "colorIndex": 2,
+    "color": "Szałwiowy",
+    "slug": "orbit-szalwiowy",
+    "files": {
+      "main": "/products/orbit-szalwiowy-main.jpg",
+      "detail": "/products/orbit-szalwiowy-detail.jpg",
+      "styled": "/products/orbit-szalwiowy-styled.jpg"
+    }
+  },
+  {
+    "model": "orbit",
+    "colorIndex": 3,
+    "color": "Piaskowy",
+    "slug": "orbit-piaskowy",
+    "files": {
+      "main": "/products/orbit-piaskowy-main.jpg",
+      "detail": "/products/orbit-piaskowy-detail.jpg",
+      "styled": "/products/orbit-piaskowy-styled.jpg"
+    }
+  },
+  {
+    "model": "orbit",
+    "colorIndex": 4,
+    "color": "Terakota",
+    "slug": "orbit-terakota",
+    "files": {
+      "main": "/products/orbit-terakota-main.jpg",
+      "detail": "/products/orbit-terakota-detail.jpg",
+      "styled": "/products/orbit-terakota-styled.jpg"
+    }
+  },
+  {
+    "model": "senne",
+    "colorIndex": 0,
+    "color": "Grafit",
+    "slug": "senne-grafit",
+    "files": {
+      "main": "/products/senne-grafit-main.jpg",
+      "detail": "/products/senne-grafit-detail.jpg",
+      "styled": "/products/senne-grafit-styled.jpg"
+    }
+  },
+  {
+    "model": "senne",
+    "colorIndex": 1,
+    "color": "Głęboki granat",
+    "slug": "senne-gleboki-granat",
+    "files": {
+      "main": "/products/senne-gleboki-granat-main.jpg",
+      "detail": "/products/senne-gleboki-granat-detail.jpg",
+      "styled": "/products/senne-gleboki-granat-styled.jpg"
+    }
+  },
+  {
+    "model": "senne",
+    "colorIndex": 2,
+    "color": "Jasny szary",
+    "slug": "senne-jasny-szary",
+    "files": {
+      "main": "/products/senne-jasny-szary-main.jpg",
+      "detail": "/products/senne-jasny-szary-detail.jpg",
+      "styled": "/products/senne-jasny-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "senne",
+    "colorIndex": 3,
+    "color": "Beżowy",
+    "slug": "senne-bezowy",
+    "files": {
+      "main": "/products/senne-bezowy-main.jpg",
+      "detail": "/products/senne-bezowy-detail.jpg",
+      "styled": "/products/senne-bezowy-styled.jpg"
+    }
+  },
+  {
+    "model": "senne",
+    "colorIndex": 4,
+    "color": "Butelkowa zieleń",
+    "slug": "senne-butelkowa-zielen",
+    "files": {
+      "main": "/products/senne-butelkowa-zielen-main.jpg",
+      "detail": "/products/senne-butelkowa-zielen-detail.jpg",
+      "styled": "/products/senne-butelkowa-zielen-styled.jpg"
+    }
+  },
+  {
+    "model": "fjord",
+    "colorIndex": 0,
+    "color": "Jasny szary",
+    "slug": "fjord-jasny-szary",
+    "files": {
+      "main": "/products/fjord-jasny-szary-main.jpg",
+      "detail": "/products/fjord-jasny-szary-detail.jpg",
+      "styled": "/products/fjord-jasny-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "fjord",
+    "colorIndex": 1,
+    "color": "Butelkowa zieleń",
+    "slug": "fjord-butelkowa-zielen",
+    "files": {
+      "main": "/products/fjord-butelkowa-zielen-main.jpg",
+      "detail": "/products/fjord-butelkowa-zielen-detail.jpg",
+      "styled": "/products/fjord-butelkowa-zielen-styled.jpg"
+    }
+  },
+  {
+    "model": "fjord",
+    "colorIndex": 2,
+    "color": "Beżowy",
+    "slug": "fjord-bezowy",
+    "files": {
+      "main": "/products/fjord-bezowy-main.jpg",
+      "detail": "/products/fjord-bezowy-detail.jpg",
+      "styled": "/products/fjord-bezowy-styled.jpg"
+    }
+  },
+  {
+    "model": "fjord",
+    "colorIndex": 3,
+    "color": "Granatowy",
+    "slug": "fjord-granatowy",
+    "files": {
+      "main": "/products/fjord-granatowy-main.jpg",
+      "detail": "/products/fjord-granatowy-detail.jpg",
+      "styled": "/products/fjord-granatowy-styled.jpg"
+    }
+  },
+  {
+    "model": "fjord",
+    "colorIndex": 4,
+    "color": "Terakota",
+    "slug": "fjord-terakota",
+    "files": {
+      "main": "/products/fjord-terakota-main.jpg",
+      "detail": "/products/fjord-terakota-detail.jpg",
+      "styled": "/products/fjord-terakota-styled.jpg"
+    }
+  },
+  {
+    "model": "haven",
+    "colorIndex": 0,
+    "color": "Kremowy",
+    "slug": "haven-kremowy",
+    "files": {
+      "main": "/products/haven-kremowy-main.jpg",
+      "detail": "/products/haven-kremowy-detail.jpg",
+      "styled": "/products/haven-kremowy-styled.jpg"
+    }
+  },
+  {
+    "model": "haven",
+    "colorIndex": 1,
+    "color": "Grafit",
+    "slug": "haven-grafit",
+    "files": {
+      "main": "/products/haven-grafit-main.jpg",
+      "detail": "/products/haven-grafit-detail.jpg",
+      "styled": "/products/haven-grafit-styled.jpg"
+    }
+  },
+  {
+    "model": "haven",
+    "colorIndex": 2,
+    "color": "Butelkowa zieleń",
+    "slug": "haven-butelkowa-zielen",
+    "files": {
+      "main": "/products/haven-butelkowa-zielen-main.jpg",
+      "detail": "/products/haven-butelkowa-zielen-detail.jpg",
+      "styled": "/products/haven-butelkowa-zielen-styled.jpg"
+    }
+  },
+  {
+    "model": "haven",
+    "colorIndex": 3,
+    "color": "Musztardowy",
+    "slug": "haven-musztardowy",
+    "files": {
+      "main": "/products/haven-musztardowy-main.jpg",
+      "detail": "/products/haven-musztardowy-detail.jpg",
+      "styled": "/products/haven-musztardowy-styled.jpg"
+    }
+  },
+  {
+    "model": "haven",
+    "colorIndex": 4,
+    "color": "Błękitny",
+    "slug": "haven-blekitny",
+    "files": {
+      "main": "/products/haven-blekitny-main.jpg",
+      "detail": "/products/haven-blekitny-detail.jpg",
+      "styled": "/products/haven-blekitny-styled.jpg"
+    }
+  },
+  {
+    "model": "ergo",
+    "colorIndex": 0,
+    "color": "Czarny",
+    "slug": "ergo-czarny",
+    "files": {
+      "main": "/products/ergo-czarny-main.jpg",
+      "detail": "/products/ergo-czarny-detail.jpg",
+      "styled": "/products/ergo-czarny-styled.jpg"
+    }
+  },
+  {
+    "model": "ergo",
+    "colorIndex": 1,
+    "color": "Szary",
+    "slug": "ergo-szary",
+    "files": {
+      "main": "/products/ergo-szary-main.jpg",
+      "detail": "/products/ergo-szary-detail.jpg",
+      "styled": "/products/ergo-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "ergo",
+    "colorIndex": 2,
+    "color": "Biały",
+    "slug": "ergo-bialy",
+    "files": {
+      "main": "/products/ergo-bialy-main.jpg",
+      "detail": "/products/ergo-bialy-detail.jpg",
+      "styled": "/products/ergo-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "ergo",
+    "colorIndex": 3,
+    "color": "Granatowy",
+    "slug": "ergo-granatowy",
+    "files": {
+      "main": "/products/ergo-granatowy-main.jpg",
+      "detail": "/products/ergo-granatowy-detail.jpg",
+      "styled": "/products/ergo-granatowy-styled.jpg"
+    }
+  },
+  {
+    "model": "ergo",
+    "colorIndex": 4,
+    "color": "Oliwkowy",
+    "slug": "ergo-oliwkowy",
+    "files": {
+      "main": "/products/ergo-oliwkowy-main.jpg",
+      "detail": "/products/ergo-oliwkowy-detail.jpg",
+      "styled": "/products/ergo-oliwkowy-styled.jpg"
+    }
+  },
+  {
+    "model": "forma",
+    "colorIndex": 0,
+    "color": "Naturalny dąb",
+    "slug": "forma-naturalny-dab",
+    "files": {
+      "main": "/products/forma-naturalny-dab-main.jpg",
+      "detail": "/products/forma-naturalny-dab-detail.jpg",
+      "styled": "/products/forma-naturalny-dab-styled.jpg"
+    }
+  },
+  {
+    "model": "forma",
+    "colorIndex": 1,
+    "color": "Orzech",
+    "slug": "forma-orzech",
+    "files": {
+      "main": "/products/forma-orzech-main.jpg",
+      "detail": "/products/forma-orzech-detail.jpg",
+      "styled": "/products/forma-orzech-styled.jpg"
+    }
+  },
+  {
+    "model": "forma",
+    "colorIndex": 2,
+    "color": "Czarny",
+    "slug": "forma-czarny",
+    "files": {
+      "main": "/products/forma-czarny-main.jpg",
+      "detail": "/products/forma-czarny-detail.jpg",
+      "styled": "/products/forma-czarny-styled.jpg"
+    }
+  },
+  {
+    "model": "forma",
+    "colorIndex": 3,
+    "color": "Biały",
+    "slug": "forma-bialy",
+    "files": {
+      "main": "/products/forma-bialy-main.jpg",
+      "detail": "/products/forma-bialy-detail.jpg",
+      "styled": "/products/forma-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "forma",
+    "colorIndex": 4,
+    "color": "Oliwkowy",
+    "slug": "forma-oliwkowy",
+    "files": {
+      "main": "/products/forma-oliwkowy-main.jpg",
+      "detail": "/products/forma-oliwkowy-detail.jpg",
+      "styled": "/products/forma-oliwkowy-styled.jpg"
+    }
+  },
+  {
+    "model": "puff",
+    "colorIndex": 0,
+    "color": "Bouclé ecru",
+    "slug": "puff-boucl-ecru",
+    "files": {
+      "main": "/products/puff-boucl-ecru-main.jpg",
+      "detail": "/products/puff-boucl-ecru-detail.jpg",
+      "styled": "/products/puff-boucl-ecru-styled.jpg"
+    }
+  },
+  {
+    "model": "puff",
+    "colorIndex": 1,
+    "color": "Szary",
+    "slug": "puff-szary",
+    "files": {
+      "main": "/products/puff-szary-main.jpg",
+      "detail": "/products/puff-szary-detail.jpg",
+      "styled": "/products/puff-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "puff",
+    "colorIndex": 2,
+    "color": "Butelkowa zieleń",
+    "slug": "puff-butelkowa-zielen",
+    "files": {
+      "main": "/products/puff-butelkowa-zielen-main.jpg",
+      "detail": "/products/puff-butelkowa-zielen-detail.jpg",
+      "styled": "/products/puff-butelkowa-zielen-styled.jpg"
+    }
+  },
+  {
+    "model": "puff",
+    "colorIndex": 3,
+    "color": "Terakota",
+    "slug": "puff-terakota",
+    "files": {
+      "main": "/products/puff-terakota-main.jpg",
+      "detail": "/products/puff-terakota-detail.jpg",
+      "styled": "/products/puff-terakota-styled.jpg"
+    }
+  },
+  {
+    "model": "puff",
+    "colorIndex": 4,
+    "color": "Granatowy",
+    "slug": "puff-granatowy",
+    "files": {
+      "main": "/products/puff-granatowy-main.jpg",
+      "detail": "/products/puff-granatowy-detail.jpg",
+      "styled": "/products/puff-granatowy-styled.jpg"
+    }
+  },
+  {
+    "model": "luna",
+    "colorIndex": 0,
+    "color": "Dąb naturalny",
+    "slug": "luna-dab-naturalny",
+    "files": {
+      "main": "/products/luna-dab-naturalny-main.jpg",
+      "detail": "/products/luna-dab-naturalny-detail.jpg",
+      "styled": "/products/luna-dab-naturalny-styled.jpg"
+    }
+  },
+  {
+    "model": "luna",
+    "colorIndex": 1,
+    "color": "Orzech",
+    "slug": "luna-orzech",
+    "files": {
+      "main": "/products/luna-orzech-main.jpg",
+      "detail": "/products/luna-orzech-detail.jpg",
+      "styled": "/products/luna-orzech-styled.jpg"
+    }
+  },
+  {
+    "model": "luna",
+    "colorIndex": 2,
+    "color": "Czarny",
+    "slug": "luna-czarny",
+    "files": {
+      "main": "/products/luna-czarny-main.jpg",
+      "detail": "/products/luna-czarny-detail.jpg",
+      "styled": "/products/luna-czarny-styled.jpg"
+    }
+  },
+  {
+    "model": "luna",
+    "colorIndex": 3,
+    "color": "Biały",
+    "slug": "luna-bialy",
+    "files": {
+      "main": "/products/luna-bialy-main.jpg",
+      "detail": "/products/luna-bialy-detail.jpg",
+      "styled": "/products/luna-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "luna",
+    "colorIndex": 4,
+    "color": "Jasny szary",
+    "slug": "luna-jasny-szary",
+    "files": {
+      "main": "/products/luna-jasny-szary-main.jpg",
+      "detail": "/products/luna-jasny-szary-detail.jpg",
+      "styled": "/products/luna-jasny-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "dania",
+    "colorIndex": 0,
+    "color": "Dąb naturalny",
+    "slug": "dania-dab-naturalny",
+    "files": {
+      "main": "/products/dania-dab-naturalny-main.jpg",
+      "detail": "/products/dania-dab-naturalny-detail.jpg",
+      "styled": "/products/dania-dab-naturalny-styled.jpg"
+    }
+  },
+  {
+    "model": "dania",
+    "colorIndex": 1,
+    "color": "Orzech",
+    "slug": "dania-orzech",
+    "files": {
+      "main": "/products/dania-orzech-main.jpg",
+      "detail": "/products/dania-orzech-detail.jpg",
+      "styled": "/products/dania-orzech-styled.jpg"
+    }
+  },
+  {
+    "model": "dania",
+    "colorIndex": 2,
+    "color": "Czarny",
+    "slug": "dania-czarny",
+    "files": {
+      "main": "/products/dania-czarny-main.jpg",
+      "detail": "/products/dania-czarny-detail.jpg",
+      "styled": "/products/dania-czarny-styled.jpg"
+    }
+  },
+  {
+    "model": "dania",
+    "colorIndex": 3,
+    "color": "Biały",
+    "slug": "dania-bialy",
+    "files": {
+      "main": "/products/dania-bialy-main.jpg",
+      "detail": "/products/dania-bialy-detail.jpg",
+      "styled": "/products/dania-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "dania",
+    "colorIndex": 4,
+    "color": "Dymny dąb",
+    "slug": "dania-dymny-dab",
+    "files": {
+      "main": "/products/dania-dymny-dab-main.jpg",
+      "detail": "/products/dania-dymny-dab-detail.jpg",
+      "styled": "/products/dania-dymny-dab-styled.jpg"
+    }
+  },
+  {
+    "model": "circo",
+    "colorIndex": 0,
+    "color": "Dąb",
+    "slug": "circo-dab",
+    "files": {
+      "main": "/products/circo-dab-main.jpg",
+      "detail": "/products/circo-dab-detail.jpg",
+      "styled": "/products/circo-dab-styled.jpg"
+    }
+  },
+  {
+    "model": "circo",
+    "colorIndex": 1,
+    "color": "Biały",
+    "slug": "circo-bialy",
+    "files": {
+      "main": "/products/circo-bialy-main.jpg",
+      "detail": "/products/circo-bialy-detail.jpg",
+      "styled": "/products/circo-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "circo",
+    "colorIndex": 2,
+    "color": "Czarny",
+    "slug": "circo-czarny",
+    "files": {
+      "main": "/products/circo-czarny-main.jpg",
+      "detail": "/products/circo-czarny-detail.jpg",
+      "styled": "/products/circo-czarny-styled.jpg"
+    }
+  },
+  {
+    "model": "circo",
+    "colorIndex": 3,
+    "color": "Orzech",
+    "slug": "circo-orzech",
+    "files": {
+      "main": "/products/circo-orzech-main.jpg",
+      "detail": "/products/circo-orzech-detail.jpg",
+      "styled": "/products/circo-orzech-styled.jpg"
+    }
+  },
+  {
+    "model": "circo",
+    "colorIndex": 4,
+    "color": "Marmur",
+    "slug": "circo-marmur",
+    "files": {
+      "main": "/products/circo-marmur-main.jpg",
+      "detail": "/products/circo-marmur-detail.jpg",
+      "styled": "/products/circo-marmur-styled.jpg"
+    }
+  },
+  {
+    "model": "marmo",
+    "colorIndex": 0,
+    "color": "Biały marmur",
+    "slug": "marmo-bialy-marmur",
+    "files": {
+      "main": "/products/marmo-bialy-marmur-main.jpg",
+      "detail": "/products/marmo-bialy-marmur-detail.jpg",
+      "styled": "/products/marmo-bialy-marmur-styled.jpg"
+    }
+  },
+  {
+    "model": "marmo",
+    "colorIndex": 1,
+    "color": "Czarny marmur",
+    "slug": "marmo-czarny-marmur",
+    "files": {
+      "main": "/products/marmo-czarny-marmur-main.jpg",
+      "detail": "/products/marmo-czarny-marmur-detail.jpg",
+      "styled": "/products/marmo-czarny-marmur-styled.jpg"
+    }
+  },
+  {
+    "model": "marmo",
+    "colorIndex": 2,
+    "color": "Trawertyn",
+    "slug": "marmo-trawertyn",
+    "files": {
+      "main": "/products/marmo-trawertyn-main.jpg",
+      "detail": "/products/marmo-trawertyn-detail.jpg",
+      "styled": "/products/marmo-trawertyn-styled.jpg"
+    }
+  },
+  {
+    "model": "marmo",
+    "colorIndex": 3,
+    "color": "Szary kamień",
+    "slug": "marmo-szary-kamien",
+    "files": {
+      "main": "/products/marmo-szary-kamien-main.jpg",
+      "detail": "/products/marmo-szary-kamien-detail.jpg",
+      "styled": "/products/marmo-szary-kamien-styled.jpg"
+    }
+  },
+  {
+    "model": "marmo",
+    "colorIndex": 4,
+    "color": "Dąb",
+    "slug": "marmo-dab",
+    "files": {
+      "main": "/products/marmo-dab-main.jpg",
+      "detail": "/products/marmo-dab-detail.jpg",
+      "styled": "/products/marmo-dab-styled.jpg"
+    }
+  },
+  {
+    "model": "axis",
+    "colorIndex": 0,
+    "color": "Dąb",
+    "slug": "axis-dab",
+    "files": {
+      "main": "/products/axis-dab-main.jpg",
+      "detail": "/products/axis-dab-detail.jpg",
+      "styled": "/products/axis-dab-styled.jpg"
+    }
+  },
+  {
+    "model": "axis",
+    "colorIndex": 1,
+    "color": "Orzech",
+    "slug": "axis-orzech",
+    "files": {
+      "main": "/products/axis-orzech-main.jpg",
+      "detail": "/products/axis-orzech-detail.jpg",
+      "styled": "/products/axis-orzech-styled.jpg"
+    }
+  },
+  {
+    "model": "axis",
+    "colorIndex": 2,
+    "color": "Czarny",
+    "slug": "axis-czarny",
+    "files": {
+      "main": "/products/axis-czarny-main.jpg",
+      "detail": "/products/axis-czarny-detail.jpg",
+      "styled": "/products/axis-czarny-styled.jpg"
+    }
+  },
+  {
+    "model": "axis",
+    "colorIndex": 3,
+    "color": "Biały",
+    "slug": "axis-bialy",
+    "files": {
+      "main": "/products/axis-bialy-main.jpg",
+      "detail": "/products/axis-bialy-detail.jpg",
+      "styled": "/products/axis-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "axis",
+    "colorIndex": 4,
+    "color": "Dymny dąb",
+    "slug": "axis-dymny-dab",
+    "files": {
+      "main": "/products/axis-dymny-dab-main.jpg",
+      "detail": "/products/axis-dymny-dab-detail.jpg",
+      "styled": "/products/axis-dymny-dab-styled.jpg"
+    }
+  },
+  {
+    "model": "studio",
+    "colorIndex": 0,
+    "color": "Dąb",
+    "slug": "studio-dab",
+    "files": {
+      "main": "/products/studio-dab-main.jpg",
+      "detail": "/products/studio-dab-detail.jpg",
+      "styled": "/products/studio-dab-styled.jpg"
+    }
+  },
+  {
+    "model": "studio",
+    "colorIndex": 1,
+    "color": "Biały",
+    "slug": "studio-bialy",
+    "files": {
+      "main": "/products/studio-bialy-main.jpg",
+      "detail": "/products/studio-bialy-detail.jpg",
+      "styled": "/products/studio-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "studio",
+    "colorIndex": 2,
+    "color": "Czarny",
+    "slug": "studio-czarny",
+    "files": {
+      "main": "/products/studio-czarny-main.jpg",
+      "detail": "/products/studio-czarny-detail.jpg",
+      "styled": "/products/studio-czarny-styled.jpg"
+    }
+  },
+  {
+    "model": "studio",
+    "colorIndex": 3,
+    "color": "Orzech",
+    "slug": "studio-orzech",
+    "files": {
+      "main": "/products/studio-orzech-main.jpg",
+      "detail": "/products/studio-orzech-detail.jpg",
+      "styled": "/products/studio-orzech-styled.jpg"
+    }
+  },
+  {
+    "model": "studio",
+    "colorIndex": 4,
+    "color": "Jasny szary",
+    "slug": "studio-jasny-szary",
+    "files": {
+      "main": "/products/studio-jasny-szary-main.jpg",
+      "detail": "/products/studio-jasny-szary-detail.jpg",
+      "styled": "/products/studio-jasny-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "slim",
+    "colorIndex": 0,
+    "color": "Czarny",
+    "slug": "slim-czarny",
+    "files": {
+      "main": "/products/slim-czarny-main.jpg",
+      "detail": "/products/slim-czarny-detail.jpg",
+      "styled": "/products/slim-czarny-styled.jpg"
+    }
+  },
+  {
+    "model": "slim",
+    "colorIndex": 1,
+    "color": "Biały",
+    "slug": "slim-bialy",
+    "files": {
+      "main": "/products/slim-bialy-main.jpg",
+      "detail": "/products/slim-bialy-detail.jpg",
+      "styled": "/products/slim-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "slim",
+    "colorIndex": 2,
+    "color": "Dąb",
+    "slug": "slim-dab",
+    "files": {
+      "main": "/products/slim-dab-main.jpg",
+      "detail": "/products/slim-dab-detail.jpg",
+      "styled": "/products/slim-dab-styled.jpg"
+    }
+  },
+  {
+    "model": "slim",
+    "colorIndex": 3,
+    "color": "Orzech",
+    "slug": "slim-orzech",
+    "files": {
+      "main": "/products/slim-orzech-main.jpg",
+      "detail": "/products/slim-orzech-detail.jpg",
+      "styled": "/products/slim-orzech-styled.jpg"
+    }
+  },
+  {
+    "model": "slim",
+    "colorIndex": 4,
+    "color": "Szary",
+    "slug": "slim-szary",
+    "files": {
+      "main": "/products/slim-szary-main.jpg",
+      "detail": "/products/slim-szary-detail.jpg",
+      "styled": "/products/slim-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "nord",
+    "colorIndex": 0,
+    "color": "Czarny mat",
+    "slug": "nord-czarny-mat",
+    "files": {
+      "main": "/products/nord-czarny-mat-main.jpg",
+      "detail": "/products/nord-czarny-mat-detail.jpg",
+      "styled": "/products/nord-czarny-mat-styled.jpg"
+    }
+  },
+  {
+    "model": "nord",
+    "colorIndex": 1,
+    "color": "Biały",
+    "slug": "nord-bialy",
+    "files": {
+      "main": "/products/nord-bialy-main.jpg",
+      "detail": "/products/nord-bialy-detail.jpg",
+      "styled": "/products/nord-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "nord",
+    "colorIndex": 2,
+    "color": "Mosiądz",
+    "slug": "nord-mosiadz",
+    "files": {
+      "main": "/products/nord-mosiadz-main.jpg",
+      "detail": "/products/nord-mosiadz-detail.jpg",
+      "styled": "/products/nord-mosiadz-styled.jpg"
+    }
+  },
+  {
+    "model": "nord",
+    "colorIndex": 3,
+    "color": "Szary",
+    "slug": "nord-szary",
+    "files": {
+      "main": "/products/nord-szary-main.jpg",
+      "detail": "/products/nord-szary-detail.jpg",
+      "styled": "/products/nord-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "nord",
+    "colorIndex": 4,
+    "color": "Drewno",
+    "slug": "nord-drewno",
+    "files": {
+      "main": "/products/nord-drewno-main.jpg",
+      "detail": "/products/nord-drewno-detail.jpg",
+      "styled": "/products/nord-drewno-styled.jpg"
+    }
+  },
+  {
+    "model": "arc",
+    "colorIndex": 0,
+    "color": "Mosiądz",
+    "slug": "arc-mosiadz",
+    "files": {
+      "main": "/products/arc-mosiadz-main.jpg",
+      "detail": "/products/arc-mosiadz-detail.jpg",
+      "styled": "/products/arc-mosiadz-styled.jpg"
+    }
+  },
+  {
+    "model": "arc",
+    "colorIndex": 1,
+    "color": "Czarny mat",
+    "slug": "arc-czarny-mat",
+    "files": {
+      "main": "/products/arc-czarny-mat-main.jpg",
+      "detail": "/products/arc-czarny-mat-detail.jpg",
+      "styled": "/products/arc-czarny-mat-styled.jpg"
+    }
+  },
+  {
+    "model": "arc",
+    "colorIndex": 2,
+    "color": "Biały",
+    "slug": "arc-bialy",
+    "files": {
+      "main": "/products/arc-bialy-main.jpg",
+      "detail": "/products/arc-bialy-detail.jpg",
+      "styled": "/products/arc-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "arc",
+    "colorIndex": 3,
+    "color": "Szary",
+    "slug": "arc-szary",
+    "files": {
+      "main": "/products/arc-szary-main.jpg",
+      "detail": "/products/arc-szary-detail.jpg",
+      "styled": "/products/arc-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "arc",
+    "colorIndex": 4,
+    "color": "Miedź",
+    "slug": "arc-miedz",
+    "files": {
+      "main": "/products/arc-miedz-main.jpg",
+      "detail": "/products/arc-miedz-detail.jpg",
+      "styled": "/products/arc-miedz-styled.jpg"
+    }
+  },
+  {
+    "model": "trio",
+    "colorIndex": 0,
+    "color": "Len naturalny",
+    "slug": "trio-len-naturalny",
+    "files": {
+      "main": "/products/trio-len-naturalny-main.jpg",
+      "detail": "/products/trio-len-naturalny-detail.jpg",
+      "styled": "/products/trio-len-naturalny-styled.jpg"
+    }
+  },
+  {
+    "model": "trio",
+    "colorIndex": 1,
+    "color": "Szary",
+    "slug": "trio-szary",
+    "files": {
+      "main": "/products/trio-szary-main.jpg",
+      "detail": "/products/trio-szary-detail.jpg",
+      "styled": "/products/trio-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "trio",
+    "colorIndex": 2,
+    "color": "Zieleń",
+    "slug": "trio-zielen",
+    "files": {
+      "main": "/products/trio-zielen-main.jpg",
+      "detail": "/products/trio-zielen-detail.jpg",
+      "styled": "/products/trio-zielen-styled.jpg"
+    }
+  },
+  {
+    "model": "trio",
+    "colorIndex": 3,
+    "color": "Terakota",
+    "slug": "trio-terakota",
+    "files": {
+      "main": "/products/trio-terakota-main.jpg",
+      "detail": "/products/trio-terakota-detail.jpg",
+      "styled": "/products/trio-terakota-styled.jpg"
+    }
+  },
+  {
+    "model": "trio",
+    "colorIndex": 4,
+    "color": "Biały",
+    "slug": "trio-bialy",
+    "files": {
+      "main": "/products/trio-bialy-main.jpg",
+      "detail": "/products/trio-bialy-detail.jpg",
+      "styled": "/products/trio-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "kula",
+    "colorIndex": 0,
+    "color": "Mosiądz",
+    "slug": "kula-mosiadz",
+    "files": {
+      "main": "/products/kula-mosiadz-main.jpg",
+      "detail": "/products/kula-mosiadz-detail.jpg",
+      "styled": "/products/kula-mosiadz-styled.jpg"
+    }
+  },
+  {
+    "model": "kula",
+    "colorIndex": 1,
+    "color": "Czarny mat",
+    "slug": "kula-czarny-mat",
+    "files": {
+      "main": "/products/kula-czarny-mat-main.jpg",
+      "detail": "/products/kula-czarny-mat-detail.jpg",
+      "styled": "/products/kula-czarny-mat-styled.jpg"
+    }
+  },
+  {
+    "model": "kula",
+    "colorIndex": 2,
+    "color": "Biały",
+    "slug": "kula-bialy",
+    "files": {
+      "main": "/products/kula-bialy-main.jpg",
+      "detail": "/products/kula-bialy-detail.jpg",
+      "styled": "/products/kula-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "kula",
+    "colorIndex": 3,
+    "color": "Szary",
+    "slug": "kula-szary",
+    "files": {
+      "main": "/products/kula-szary-main.jpg",
+      "detail": "/products/kula-szary-detail.jpg",
+      "styled": "/products/kula-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "kula",
+    "colorIndex": 4,
+    "color": "Miedź",
+    "slug": "kula-miedz",
+    "files": {
+      "main": "/products/kula-miedz-main.jpg",
+      "detail": "/products/kula-miedz-detail.jpg",
+      "styled": "/products/kula-miedz-styled.jpg"
+    }
+  },
+  {
+    "model": "halo",
+    "colorIndex": 0,
+    "color": "Mosiądz",
+    "slug": "halo-mosiadz",
+    "files": {
+      "main": "/products/halo-mosiadz-main.jpg",
+      "detail": "/products/halo-mosiadz-detail.jpg",
+      "styled": "/products/halo-mosiadz-styled.jpg"
+    }
+  },
+  {
+    "model": "halo",
+    "colorIndex": 1,
+    "color": "Czarny mat",
+    "slug": "halo-czarny-mat",
+    "files": {
+      "main": "/products/halo-czarny-mat-main.jpg",
+      "detail": "/products/halo-czarny-mat-detail.jpg",
+      "styled": "/products/halo-czarny-mat-styled.jpg"
+    }
+  },
+  {
+    "model": "halo",
+    "colorIndex": 2,
+    "color": "Biały",
+    "slug": "halo-bialy",
+    "files": {
+      "main": "/products/halo-bialy-main.jpg",
+      "detail": "/products/halo-bialy-detail.jpg",
+      "styled": "/products/halo-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "halo",
+    "colorIndex": 3,
+    "color": "Szary",
+    "slug": "halo-szary",
+    "files": {
+      "main": "/products/halo-szary-main.jpg",
+      "detail": "/products/halo-szary-detail.jpg",
+      "styled": "/products/halo-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "halo",
+    "colorIndex": 4,
+    "color": "Miedź",
+    "slug": "halo-miedz",
+    "files": {
+      "main": "/products/halo-miedz-main.jpg",
+      "detail": "/products/halo-miedz-detail.jpg",
+      "styled": "/products/halo-miedz-styled.jpg"
+    }
+  },
+  {
+    "model": "dome",
+    "colorIndex": 0,
+    "color": "Biały",
+    "slug": "dome-bialy",
+    "files": {
+      "main": "/products/dome-bialy-main.jpg",
+      "detail": "/products/dome-bialy-detail.jpg",
+      "styled": "/products/dome-bialy-styled.jpg"
+    }
+  },
+  {
+    "model": "dome",
+    "colorIndex": 1,
+    "color": "Czarny mat",
+    "slug": "dome-czarny-mat",
+    "files": {
+      "main": "/products/dome-czarny-mat-main.jpg",
+      "detail": "/products/dome-czarny-mat-detail.jpg",
+      "styled": "/products/dome-czarny-mat-styled.jpg"
+    }
+  },
+  {
+    "model": "dome",
+    "colorIndex": 2,
+    "color": "Szary",
+    "slug": "dome-szary",
+    "files": {
+      "main": "/products/dome-szary-main.jpg",
+      "detail": "/products/dome-szary-detail.jpg",
+      "styled": "/products/dome-szary-styled.jpg"
+    }
+  },
+  {
+    "model": "dome",
+    "colorIndex": 3,
+    "color": "Mosiądz",
+    "slug": "dome-mosiadz",
+    "files": {
+      "main": "/products/dome-mosiadz-main.jpg",
+      "detail": "/products/dome-mosiadz-detail.jpg",
+      "styled": "/products/dome-mosiadz-styled.jpg"
+    }
+  },
+  {
+    "model": "dome",
+    "colorIndex": 4,
+    "color": "Miedź",
+    "slug": "dome-miedz",
+    "files": {
+      "main": "/products/dome-miedz-main.jpg",
+      "detail": "/products/dome-miedz-detail.jpg",
+      "styled": "/products/dome-miedz-styled.jpg"
+    }
+  }
+]

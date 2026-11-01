@@ -1,249 +1,223 @@
-
-'use client';
-
-import { useEffect, useState } from 'react';
-import { notFound, useParams } from 'next/navigation';
+import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Check, ChevronRight, ShieldCheck, Star, Truck } from 'lucide-react';
-
-import { getProductBySlug, getProductReviews, getRelatedProducts } from '@/lib/products';
-import type { Product, Review } from '@/lib/types';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { StarRating } from '@/components/products/star-rating';
+import Link from 'next/link';
+import { notFound } from 'next/navigation';
+import { ChevronRight, Package, Ruler, Sparkles } from 'lucide-react';
+import { ProductGallery } from '@/components/products/product-gallery';
+import { ProductPurchase } from '@/components/products/product-purchase';
 import { ProductCard } from '@/components/products/product-card';
-import { useCart } from '@/contexts/cart-context';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import { Skeleton } from '@/components/ui/skeleton';
+import { ReviewSummary } from '@/components/products/review-summary';
+import { ViewTracker } from '@/components/products/view-tracker';
+import { RecentlyViewed } from '@/components/shop/recently-viewed';
+import { SectionHeading } from '@/components/shared/section-heading';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { getProductReviews, products, productBySlug } from '@/lib/catalog';
+import { getRelatedProducts } from '@/lib/products';
+import { formatDimensions, formatPrice } from '@/lib/format';
 
-function ProductSkeleton() {
-    return (
-        <div className="container py-8 md:py-12">
-            <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
-                <div>
-                    <Skeleton className="aspect-square w-full rounded-lg" />
-                    <div className="flex gap-2 mt-4">
-                        <Skeleton className="w-20 h-20 rounded" />
-                        <Skeleton className="w-20 h-20 rounded" />
-                        <Skeleton className="w-20 h-20 rounded" />
-                    </div>
-                </div>
-                <div className="space-y-6">
-                    <Skeleton className="h-9 w-3/4" />
-                    <Skeleton className="h-6 w-1/4" />
-                    <Skeleton className="h-12 w-1/2" />
-                    <Skeleton className="h-10 w-full" />
-                    <div className="space-y-4">
-                         <Skeleton className="h-5 w-full" />
-                         <Skeleton className="h-5 w-5/6" />
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
+type PageProps = { params: Promise<{ slug: string }> };
+
+export const generateStaticParams = () => products.map((product) => ({ slug: product.slug }));
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const product = productBySlug.get(slug);
+  if (!product) return { title: 'Produkt nie znaleziony' };
+  return {
+    title: `${product.name} — ${product.activeColor.name}`,
+    description: product.description.slice(0, 155),
+    openGraph: {
+      title: `${product.name} · ${product.activeColor.name}`,
+      description: product.tagline,
+      images: product.images[0] ? [{ url: product.images[0].url }] : undefined,
+    },
+  };
 }
 
+const careTips = [
+  'Odkurzaj tkaninę miękką końcówką raz w tygodniu.',
+  'Plamy usuwaj letnią wodą z delikatnym detergentem, bez szorowania.',
+  'Unikaj bezpośredniego kontaktu z ostrym słońcem, aby zachować kolor.',
+  'Drewno pielęgnuj olejem dwa razy w roku.',
+];
 
-export default function ProductPage() {
-  const params = useParams();
-  const slug = params.slug as string;
+export default async function ProductPage({ params }: PageProps) {
+  const { slug } = await params;
+  const product = productBySlug.get(slug);
+  if (!product) notFound();
 
-  const [product, setProduct] = useState<Product | null>(null);
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState<Product['images'][0] | null>(null);
-
-  const { addToCart } = useCart();
-
-  useEffect(() => {
-    if (!slug) return;
-
-    const fetchData = async () => {
-      setIsLoading(true);
-      try {
-        const productData = await getProductBySlug(slug);
-        if (!productData) {
-          notFound();
-          return;
-        }
-
-        const [relatedData, reviewsData] = await Promise.all([
-          getRelatedProducts(productData.category, productData.id),
-          getProductReviews(productData.id),
-        ]);
-
-        setProduct(productData);
-        setSelectedImage(productData.images[0]);
-        setRelatedProducts(relatedData);
-        setReviews(reviewsData);
-
-      } catch (error) {
-        console.error("Failed to fetch product data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [slug]);
-
-  if (isLoading) {
-    return <ProductSkeleton />;
-  }
-
-  if (!product) {
-    return notFound();
-  }
-
-  const handleAddToCart = () => {
-    addToCart(product);
+  const related = getRelatedProducts(product, 4);
+  const reviews = getProductReviews(product);
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.name,
+    description: product.description,
+    sku: product.sku,
+    brand: { '@type': 'Brand', name: 'BuyNest' },
+    image: product.images.map((image) => image.url),
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: product.rating,
+      reviewCount: product.reviewCount,
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'PLN',
+      price: product.price,
+      availability: product.availability === 'out-of-stock' ? 'https://schema.org/PreOrder' : 'https://schema.org/InStock',
+      url: `https://buynest.pl/product/${product.slug}`,
+    },
   };
-  
+
   return (
-    <div className="bg-background">
-      <div className="container py-8 md:py-12">
-        {/* Breadcrumbs */}
-        <div className="flex items-center text-sm text-muted-foreground mb-4">
-            <span>Home</span>
-            <ChevronRight className="h-4 w-4 mx-1" />
-            <span className="capitalize">{product.category}</span>
-            <ChevronRight className="h-4 w-4 mx-1" />
-            <span className="text-foreground font-medium truncate">{product.name}</span>
+    <div>
+      <ViewTracker slug={product.slug} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      <div className="container py-5 md:py-8">
+        <nav className="mb-5 flex flex-wrap items-center gap-1 text-xs text-muted-foreground" aria-label="Ścieżka nawigacji">
+          <Link href="/" className="hover:text-foreground">Strona główna</Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <Link href="/shop" className="hover:text-foreground">Sklep</Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <Link href={`/shop?category=${product.category}`} className="hover:text-foreground">{product.categoryLabel}</Link>
+          <ChevronRight className="h-3.5 w-3.5" />
+          <span className="truncate text-foreground">{product.name}</span>
+        </nav>
+
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="lg:sticky lg:top-24 lg:self-start">
+            <ProductGallery product={product} />
+          </div>
+          <ProductPurchase product={product} />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-16">
-          {/* Product Gallery */}
-          <div>
-             <div className="aspect-square w-full relative mb-4 rounded-lg overflow-hidden border">
-                {selectedImage && (
-                    <Image
-                        src={selectedImage.url}
-                        alt={selectedImage.alt}
-                        fill
-                        className="object-cover transition-all duration-300"
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                )}
-             </div>
-             <Carousel opts={{ align: 'start', dragFree: true }} className="w-full">
-                <CarouselContent className="-ml-2">
-                    {product.images.map((image, index) => (
-                    <CarouselItem key={index} className="pl-2 basis-1/4 md:basis-1/5">
-                        <div
-                            className={`relative aspect-square rounded-md overflow-hidden cursor-pointer border-2 ${selectedImage?.id === image.id ? 'border-primary' : 'border-transparent'}`}
-                            onClick={() => setSelectedImage(image)}
-                        >
-                            <Image
-                                src={image.url}
-                                alt={image.alt}
-                                fill
-                                className="object-cover"
-                                sizes="20vw"
-                            />
-                        </div>
-                    </CarouselItem>
+        <section className="mt-14">
+          <Tabs defaultValue="details">
+            <TabsList className="h-auto w-full flex-wrap justify-start gap-1 bg-transparent p-0">
+              <TabsTrigger value="details" className="rounded-md border data-[state=active]:bg-muted">
+                Szczegóły
+              </TabsTrigger>
+              <TabsTrigger value="specification" className="rounded-md border data-[state=active]:bg-muted">
+                Specyfikacja
+              </TabsTrigger>
+              <TabsTrigger value="reviews" className="rounded-md border data-[state=active]:bg-muted">
+                Opinie ({reviews.length})
+              </TabsTrigger>
+              <TabsTrigger value="delivery" className="rounded-md border data-[state=active]:bg-muted">
+                Dostawa i zwroty
+              </TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="details" className="mt-6 grid gap-8 md:grid-cols-[1.4fr_1fr]">
+              <div className="space-y-4">
+                <p className="text-muted-foreground">{product.description}</p>
+                <ul className="space-y-2">
+                  {product.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-2 text-sm">
+                      <Sparkles className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+                <div className="rounded-lg border bg-card p-4">
+                  <h3 className="mb-2 flex items-center gap-2 text-sm font-semibold">
+                    <Package className="h-4 w-4" /> Pielęgnacja
+                  </h3>
+                  <ul className="list-inside list-disc space-y-1 text-sm text-muted-foreground">
+                    {careTips.map((tip) => (
+                      <li key={tip}>{tip}</li>
                     ))}
-                </CarouselContent>
-             </Carousel>
-          </div>
-
-          {/* Product Info */}
-          <div className="flex flex-col">
-            <h1 className="text-3xl md:text-4xl font-bold">{product.name}</h1>
-            
-            <div className="flex items-center gap-4 mt-2">
-                <div className="flex items-center">
-                    <StarRating rating={product.rating} />
-                    <span className="ml-2 text-sm text-muted-foreground">({product.reviewCount} opinii)</span>
+                  </ul>
                 </div>
-                <Separator orientation="vertical" className="h-4" />
-                <span className={`text-sm font-medium ${product.availability === 'in-stock' ? 'text-green-600' : 'text-destructive'}`}>
-                    {product.availability === 'in-stock' ? 'Dostępny' : 'Niedostępny'}
-                </span>
-            </div>
-
-            <p className="text-4xl font-bold my-4">${product.price.toFixed(2)}</p>
-
-            <p className="text-muted-foreground leading-relaxed">
-              {product.description}
-            </p>
-
-            <div className="mt-6">
-              <Button size="lg" className="w-full md:w-auto" onClick={handleAddToCart} disabled={product.availability === 'out-of-stock'}>
-                {product.availability === 'in-stock' ? 'Dodaj do koszyka' : 'Produkt niedostępny'}
-              </Button>
-            </div>
-
-            <div className="mt-8 space-y-4 text-sm">
-                <div className="flex items-center gap-3">
-                    <Truck className="h-5 w-5 text-muted-foreground" />
-                    <span><span className="font-semibold">Darmowa dostawa</span> w ciągu 3-5 dni roboczych.</span>
+              </div>
+              <div className="space-y-4">
+                <div className="overflow-hidden rounded-lg border">
+                  <div className="relative aspect-square">
+                    <Image
+                      src={product.images[1]?.url ?? product.images[0].url}
+                      alt={product.images[1]?.alt ?? product.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-                 <div className="flex items-center gap-3">
-                    <ShieldCheck className="h-5 w-5 text-muted-foreground" />
-                    <span><span className="font-semibold">30-dniowa polityka zwrotów</span> dla Twojego spokoju.</span>
+                <div className="flex items-center gap-2 rounded-lg border bg-card p-4 text-sm">
+                  <Ruler className="h-5 w-5 shrink-0 text-accent" />
+                  <span>
+                    Wymiary: <strong>{formatDimensions(product.dimensions)}</strong>
+                    {product.dimensions.seatHeight ? ` · wysokość siedziska ${product.dimensions.seatHeight} cm` : ''}
+                  </span>
                 </div>
-            </div>
+              </div>
+            </TabsContent>
 
+            <TabsContent value="specification" className="mt-6">
+              <dl className="grid gap-px overflow-hidden rounded-lg border bg-border text-sm sm:grid-cols-2">
+                {[
+                  { label: 'Model', value: `${product.typeLabel} ${product.name.split(' ').at(-1)}` },
+                  { label: 'Kolor', value: product.activeColor.name },
+                  { label: 'Styl', value: product.style },
+                  { label: 'Materiały', value: product.materials.join(', ') },
+                  { label: 'Wymiary', value: formatDimensions(product.dimensions) },
+                  { label: 'Waga', value: `${product.weight} kg` },
+                  { label: 'Gwarancja', value: `${product.warrantyYears} lata` },
+                  { label: 'SKU', value: product.sku },
+                ].map((row) => (
+                  <div key={row.label} className="flex justify-between gap-4 bg-card p-3">
+                    <dt className="text-muted-foreground">{row.label}</dt>
+                    <dd className="text-right font-medium capitalize">{row.value}</dd>
+                  </div>
+                ))}
+              </dl>
+            </TabsContent>
+
+            <TabsContent value="reviews" className="mt-6" id="opinie">
+              <ReviewSummary rating={product.rating} reviewCount={product.reviewCount} reviews={reviews} />
+            </TabsContent>
+
+            <TabsContent value="delivery" className="mt-6 max-w-3xl">
+              <Accordion type="single" collapsible defaultValue="delivery">
+                <AccordionItem value="delivery">
+                  <AccordionTrigger className="text-sm font-medium">Dostawa</AccordionTrigger>
+                  <AccordionContent className="text-sm text-muted-foreground">
+                    Standardowo wysyłamy w 24 h, a dostawa zajmuje 2–4 dni robocze. Zamówienia powyżej{' '}
+                    {formatPrice(2500)} dostarczamy bezpłatnie. Wniesienie i montaż w wybranych miastach gratis.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="returns">
+                  <AccordionTrigger className="text-sm font-medium">Zwroty i reklamacje</AccordionTrigger>
+                  <AccordionContent className="text-sm text-muted-foreground">
+                    Masz 60 dni na zwrot bez podania przyczyny. Odbiór organizujemy sami — wystarczy zgłoszenie w
+                    panelu klienta. Reklamacje rozpatrujemy w ciągu 7 dni roboczych.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="payment">
+                  <AccordionTrigger className="text-sm font-medium">Płatności i raty</AccordionTrigger>
+                  <AccordionContent className="text-sm text-muted-foreground">
+                    BLIK, karta, Przelewy24 oraz raty 0% do 12 miesięcy. Płatność przy odbiorze dostępna dla zamówień
+                    do {formatPrice(4000)}.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </TabsContent>
+          </Tabs>
+        </section>
+
+        <section className="mt-16">
+          <SectionHeading title="Podobne produkty" description="Modele, które klienci zestawiają z tym wyborem." href="/shop" />
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+            {related.map((item) => (
+              <ProductCard key={item.id} product={item} />
+            ))}
           </div>
-        </div>
-
-        {/* Product Details & Reviews Tabs */}
-        <div className="mt-16">
-            <Tabs defaultValue="details">
-                <TabsList>
-                    <TabsTrigger value="details">Szczegóły produktu</TabsTrigger>
-                    <TabsTrigger value="reviews">Opinie ({reviews.length})</TabsTrigger>
-                    <TabsTrigger value="shipping">Wysyłka i zwroty</TabsTrigger>
-                </TabsList>
-                <TabsContent value="details" className="py-6 prose max-w-none prose-p:text-muted-foreground">
-                    <p>{product.details}</p>
-                </TabsContent>
-                <TabsContent value="reviews" className="py-6">
-                   {reviews.length > 0 ? (
-                        <div className="space-y-6">
-                            {reviews.map(review => (
-                                <div key={review.id} className="border-b pb-4">
-                                    <div className="flex items-center mb-2">
-                                        <StarRating rating={review.rating} />
-                                        <p className="ml-auto text-sm text-muted-foreground">{review.date}</p>
-                                    </div>
-                                    <p className="font-semibold mb-1">{review.author}</p>
-                                    <p className="text-muted-foreground text-sm">{review.text}</p>
-                                </div>
-                            ))}
-                        </div>
-                   ) : (
-                       <p className="text-muted-foreground">Brak opinii dla tego produktu.</p>
-                   )}
-                </TabsContent>
-                 <TabsContent value="shipping" className="py-6 prose max-w-none prose-p:text-muted-foreground">
-                    <p>{product.shippingReturns}</p>
-                </TabsContent>
-            </Tabs>
-        </div>
-
-        {/* Related Products */}
-        {relatedProducts.length > 0 && (
-          <div className="mt-20">
-            <h2 className="text-2xl font-bold mb-6">Może Ci się spodobać</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-              {relatedProducts.map(related => (
-                <ProductCard key={related.id} product={related} />
-              ))}
-            </div>
-          </div>
-        )}
-
+        </section>
       </div>
+
+      <RecentlyViewed excludeSlug={product.slug} />
     </div>
   );
 }

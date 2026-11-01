@@ -1,47 +1,61 @@
 'use client';
 
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Copy } from "lucide-react";
-
-const discounts = [
-    { code: "WELCOME10", description: "10% zniżki na pierwsze zamówienie", expiry: "Wygasa: 31.12.2024", type: "procent" },
-    { code: "FREESHIP", description: "Darmowa dostawa ekspresowa", expiry: "Wygasa: 30.11.2024", type: "dostawa" },
-    { code: "WINTER25", description: "25 zł zniżki na zamówienia powyżej 250 zł", expiry: "Wygasa: 28.02.2025", type: "kwota" },
-];
+import { useState } from 'react';
+import { Check, Copy, Info } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { COUPONS } from '@/lib/commerce';
+import { formatPrice } from '@/lib/format';
 
 export default function DiscountsPage() {
+  const [copied, setCopied] = useState<string | null>(null);
 
-    const handleCopy = (code: string) => {
-        navigator.clipboard.writeText(code);
-        // Add a toast notification here in a real app
-        alert(`Kod "${code}" skopiowany do schowka!`);
+  const copy = async (code: string) => {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(code);
+      setTimeout(() => setCopied(null), 2000);
+    } catch {
+      setCopied(code);
     }
+  };
 
-    return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Kody rabatowe</CardTitle>
-                <CardDescription>Twoje dostępne kody rabatowe. Użyj ich przy składaniu zamówienia.</CardDescription>
+  return (
+    <div className="space-y-4">
+      <header>
+        <h1 className="text-2xl font-bold tracking-tight">Kody rabatowe</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Aktywne kody przypisane do Twojego konta.</p>
+      </header>
+
+      <div className="grid gap-3 sm:grid-cols-2">
+        {COUPONS.map((coupon) => (
+          <Card key={coupon.code}>
+            <CardHeader className="pb-2">
+              <CardTitle className="font-mono text-base">{coupon.code}</CardTitle>
+              <CardDescription>{coupon.label}</CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-                {discounts.map((discount, index) => (
-                    <div key={index} className="border p-4 rounded-lg flex items-center justify-between">
-                        <div>
-                            <div className="flex items-center gap-4">
-                                <p className="text-lg font-mono font-bold text-primary">{discount.code}</p>
-                                <Badge variant={discount.type === 'procent' ? 'default' : 'secondary'}>{discount.type}</Badge>
-                            </div>
-                            <p className="text-sm text-muted-foreground mt-1">{discount.description}</p>
-                            <p className="text-xs text-muted-foreground mt-2">{discount.expiry}</p>
-                        </div>
-                        <Button variant="ghost" size="icon" onClick={() => handleCopy(discount.code)}>
-                            <Copy className="h-5 w-5" />
-                        </Button>
-                    </div>
-                ))}
+            <CardContent className="flex items-center justify-between gap-2">
+              <span className="text-xs text-muted-foreground">
+                {coupon.minimum > 0 ? `Min. zamówienie ${formatPrice(coupon.minimum)}` : 'Bez minimalnej wartości'}
+              </span>
+              <Button size="sm" variant="outline" onClick={() => copy(coupon.code)}>
+                {copied === coupon.code ? <Check className="mr-1.5 h-3.5 w-3.5" /> : <Copy className="mr-1.5 h-3.5 w-3.5" />}
+                {copied === coupon.code ? 'Skopiowano' : 'Kopiuj'}
+              </Button>
             </CardContent>
-        </Card>
-    );
+          </Card>
+        ))}
+      </div>
+
+      <Card>
+        <CardContent className="flex items-start gap-3 p-4 text-sm text-muted-foreground">
+          <Info className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+          <p>
+            Kody można łączyć z darmową dostawą, ale nie z innymi rabatami procentowymi. Kod wprowadzisz w koszyku —
+            rabat naliczy się automatycznie.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }

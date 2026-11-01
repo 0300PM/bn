@@ -1,74 +1,76 @@
 'use client';
 
-import React from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
+import { useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { AuthShell } from '@/components/auth/auth-shell';
+import { Button } from '@/components/ui/button';
+import { toast } from '@/hooks/use-toast';
+
+const LENGTH = 4;
 
 export default function VerifyOtpPage() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const email = searchParams.get('email');
-    const reason = searchParams.get('reason'); // 'signup' or 'reset'
+  const router = useRouter();
+  const [values, setValues] = useState<string[]>(Array.from({ length: LENGTH }, () => ''));
+  const inputs = useRef<Array<HTMLInputElement | null>>([]);
 
-    const handleVerify = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Here you would verify the OTP
-        console.log("Verifying OTP");
-        if (reason === 'reset') {
-            // In a real app, you'd pass a token to the reset page
-            router.push('/reset-password');
-        } else {
-            router.push('/login');
-        }
-    };
+  const setDigit = (index: number, digit: string) => {
+    const sanitized = digit.replace(/\D/g, '').slice(-1);
+    setValues((current) => current.map((value, position) => (position === index ? sanitized : value)));
+    if (sanitized && index < LENGTH - 1) inputs.current[index + 1]?.focus();
+  };
 
-    return (
-        <div className="container flex items-center justify-center min-h-[80vh]">
-            <Card className="w-full max-w-md">
-                <CardHeader className="text-center">
-                    <CardTitle>Zweryfikuj swój adres e-mail</CardTitle>
-                    <CardDescription>
-                        Wysłaliśmy 6-cyfrowy kod na adres <strong>{email}</strong>. Wprowadź go poniżej.
-                    </CardDescription>
-                </CardHeader>
-                <CardContent>
-                    <form onSubmit={handleVerify} className="space-y-6">
-                        <div className="flex justify-center gap-2">
-                            {[...Array(6)].map((_, i) => (
-                                <Input
-                                    key={i}
-                                    type="text"
-                                    maxLength={1}
-                                    className="w-12 h-12 text-center text-xl"
-                                    // Basic logic to move to the next input
-                                    onChange={(e) => {
-                                        if (e.target.value.length === 1) {
-                                            const nextSibling = e.currentTarget.nextElementSibling as HTMLInputElement | null;
-                                            nextSibling?.focus();
-                                        }
-                                    }}
-                                />
-                            ))}
-                        </div>
-                        <Button type="submit" className="w-full">Zweryfikuj</Button>
-                    </form>
-                     <div className="mt-4 text-center">
-                        <p className="text-sm text-muted-foreground">
-                            Nie otrzymałeś kodu? <Button variant="link" size="sm">Wyślij ponownie</Button>
-                        </p>
-                         <Button asChild variant="ghost" size="sm" className="mt-4">
-                            <Link href="/login" className="flex items-center justify-center">
-                                <ArrowLeft className="mr-2 h-4 w-4" />
-                                Wróć do logowania
-                            </Link>
-                        </Button>
-                    </div>
-                </CardContent>
-            </Card>
+  return (
+    <AuthShell
+      title="Potwierdź numer telefonu"
+      description="Wysłaliśmy 4-cyfrowy kod SMS. Wpisz go, aby dokończyć rejestrację."
+      footer={
+        <Link href="/login" className="font-medium text-foreground underline">
+          Wróć do logowania
+        </Link>
+      }
+    >
+      <form
+        className="space-y-5"
+        onSubmit={(event) => {
+          event.preventDefault();
+          if (values.some((value) => !value)) {
+            toast({ title: 'Wpisz pełny kod', variant: 'destructive' });
+            return;
+          }
+          toast({ title: 'Numer potwierdzony' });
+          router.push('/dashboard');
+        }}
+      >
+        <div className="flex gap-2">
+          {values.map((value, index) => (
+            <input
+              key={index}
+              ref={(element) => {
+                inputs.current[index] = element;
+              }}
+              value={value}
+              onChange={(event) => setDigit(index, event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === 'Backspace' && !value && index > 0) inputs.current[index - 1]?.focus();
+              }}
+              inputMode="numeric"
+              maxLength={1}
+              className="h-12 w-12 rounded-md border bg-background text-center text-lg font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              aria-label={`Cyfra ${index + 1}`}
+            />
+          ))}
         </div>
-    );
+        <Button type="submit" className="w-full">
+          Potwierdź
+        </Button>
+        <p className="text-xs text-muted-foreground">
+          Nie dostałeś kodu?{' '}
+          <button type="button" onClick={() => toast({ title: 'Kod wysłany ponownie' })} className="underline">
+            Wyślij ponownie
+          </button>
+        </p>
+      </form>
+    </AuthShell>
+  );
 }
