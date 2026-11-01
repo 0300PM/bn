@@ -1,73 +1,54 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
-
-const formSchema = z.object({
-  email: z.string().email('Nieprawidłowy adres email.'),
-});
+import { MailCheck } from 'lucide-react';
+import { AuthShell } from '@/components/auth/auth-shell';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 export default function ForgotPasswordPage() {
-    const router = useRouter();
-
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            email: '',
-        },
-    });
-
-    const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log('Password reset for:', values.email);
-        // Simulate sending email and redirecting
-        router.push(`/verify-otp?email=${values.email}&reason=reset`);
-    };
+  const [email, setEmail] = useState('');
+  const [sent, setSent] = useState(false);
 
   return (
-    <div className="container flex items-center justify-center min-h-[80vh]">
-      <Card className="w-full max-w-md">
-        <CardHeader className="text-center">
-          <CardTitle>Zapomniałeś hasła?</CardTitle>
-          <CardDescription>Podaj swój adres e-mail, a wyślemy Ci instrukcje, jak ustawić nowe hasło.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input placeholder="jan.kowalski@example.com" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full">Wyślij instrukcje</Button>
-            </form>
-          </Form>
-
-          <div className="mt-6 text-center">
-             <Button asChild variant="ghost" size="sm">
-                <Link href="/login" className="flex items-center justify-center">
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Wróć do logowania
-                </Link>
-             </Button>
+    <AuthShell
+      title="Odzyskiwanie hasła"
+      description="Wyślemy link do ustawienia nowego hasła."
+      footer={
+        <Link href="/login" className="font-medium text-foreground underline">
+          Wróć do logowania
+        </Link>
+      }
+    >
+      {sent ? (
+        <div className="space-y-4 rounded-md border bg-muted/50 p-4">
+          <MailCheck className="h-6 w-6 text-accent" />
+          <p className="text-sm">
+            Jeśli konto <strong>{email}</strong> istnieje, wysłaliśmy na nie link do zmiany hasła.
+          </p>
+          <Button asChild variant="outline" className="w-full">
+            <Link href="/reset-password">Przejdź do ustawienia hasła (demo)</Link>
+          </Button>
+        </div>
+      ) : (
+        <form
+          className="space-y-4"
+          onSubmit={(event) => {
+            event.preventDefault();
+            setSent(true);
+          }}
+        >
+          <div className="space-y-1.5">
+            <Label htmlFor="email">E-mail</Label>
+            <Input id="email" type="email" required value={email} onChange={(event) => setEmail(event.target.value)} />
           </div>
-        </CardContent>
-      </Card>
-    </div>
+          <Button type="submit" className="w-full">
+            Wyślij link
+          </Button>
+        </form>
+      )}
+    </AuthShell>
   );
 }

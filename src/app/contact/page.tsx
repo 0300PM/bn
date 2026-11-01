@@ -1,121 +1,97 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { useState } from 'react';
+import { Clock, Mail, MapPin, Phone, Send } from 'lucide-react';
+import { PageHeader } from '@/components/shared/page-header';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/hooks/use-toast';
 
-const formSchema = z.object({
-  name: z.string().min(2, "Imię musi mieć co najmniej 2 znaki."),
-  email: z.string().email("Nieprawidłowy adres email."),
-  subject: z.string().min(3, "Temat musi mieć co najmniej 3 znaki."),
-  message: z.string().min(10, "Wiadomość musi mieć co najmniej 10 znaków."),
-});
+const channels = [
+  { icon: Phone, title: 'Infolinia', value: '800 123 456', hint: 'pon.–pt. 9:00–18:00' },
+  { icon: Mail, title: 'E-mail', value: 'pomoc@buynest.pl', hint: 'odpowiadamy w 24 h' },
+  { icon: MapPin, title: 'Showroom', value: 'ul. Prosta 12, Warszawa', hint: 'sob. 10:00–16:00' },
+  { icon: Clock, title: 'Czas realizacji', value: '2–4 dni robocze', hint: 'wysyłka w 24 h' },
+];
 
 export default function ContactPage() {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
-        defaultValues: {
-            name: "",
-            email: "",
-            subject: "",
-            message: "",
-        },
-    });
+  const [form, setForm] = useState({ name: '', email: '', topic: 'Zamówienie', message: '' });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
-        // Here you would handle form submission, e.g., send an email
-        alert("Wiadomość wysłana! Dziękujemy za kontakt.");
-        form.reset();
-    }
+  const update = (key: keyof typeof form) => (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    setForm((current) => ({ ...current, [key]: event.target.value }));
 
-    return (
-        <div className="container py-12 md:py-16">
-            <div className="text-center mb-12">
-                <h1 className="text-4xl font-bold tracking-tight">Skontaktuj się z nami</h1>
-                <p className="mt-2 text-lg text-muted-foreground">
-                    Masz pytania? Chętnie na nie odpowiemy.
-                </p>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-12">
+  return (
+    <div>
+      <PageHeader
+        title="Kontakt"
+        description="Odpowiadamy na wiadomości w ciągu 24 godzin w dni robocze. W sprawie zamówienia podaj jego numer."
+        breadcrumbs={[{ href: '/contact', label: 'Kontakt' }]}
+      />
+      <div className="container grid gap-8 py-10 md:py-14 lg:grid-cols-[1fr_1.2fr]">
+        <div className="space-y-3">
+          {channels.map((channel) => (
+            <Card key={channel.title}>
+              <CardContent className="flex items-start gap-3 p-4">
+                <channel.icon className="mt-0.5 h-5 w-5 shrink-0 text-accent" />
                 <div>
-                    <h2 className="text-2xl font-bold mb-6">Informacje kontaktowe</h2>
-                    <div className="space-y-6 text-muted-foreground">
-                        <div className="flex items-start gap-4">
-                            <MapPin className="h-6 w-6 text-primary mt-1" />
-                            <div>
-                                <h3 className="font-semibold text-foreground">Adres</h3>
-                                <p>ul. Przykładowa 123</p>
-                                <p>00-001 Warszawa, Polska</p>
-                            </div>
-                        </div>
-                         <div className="flex items-start gap-4">
-                            <Phone className="h-6 w-6 text-primary mt-1" />
-                            <div>
-                                <h3 className="font-semibold text-foreground">Telefon</h3>
-                                <p>+48 123 456 789</p>
-                                <p>Pn-Pt, 9:00 - 17:00</p>
-                            </div>
-                        </div>
-                         <div className="flex items-start gap-4">
-                            <Mail className="h-6 w-6 text-primary mt-1" />
-                            <div>
-                                <h3 className="font-semibold text-foreground">Email</h3>
-                                <p>kontakt@buynest.pl</p>
-                                <p>Odpowiadamy w ciągu 24 godzin</p>
-                            </div>
-                        </div>
-                    </div>
+                  <p className="text-xs uppercase tracking-wide text-muted-foreground">{channel.title}</p>
+                  <p className="font-medium">{channel.value}</p>
+                  <p className="text-xs text-muted-foreground">{channel.hint}</p>
                 </div>
-
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Wyślij nam wiadomość</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <Form {...form}>
-                            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-                                <FormField control={form.control} name="name" render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Imię</FormLabel>
-                                        <FormControl><Input {...field} /></FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}/>
-                                <FormField control={form.control} name="email" render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl><Input {...field} /></FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}/>
-                                <FormField control={form.control} name="subject" render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Temat</FormLabel>
-                                        <FormControl><Input {...field} /></FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}/>
-                                <FormField control={form.control} name="message" render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Wiadomość</FormLabel>
-                                        <FormControl><Textarea rows={5} {...field} /></FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}/>
-                                <Button type="submit" className="w-full">Wyślij wiadomość</Button>
-                            </form>
-                        </Form>
-                    </CardContent>
-                </Card>
-            </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-    );
+
+        <Card>
+          <CardContent className="p-5 sm:p-6">
+            <form
+              className="space-y-4"
+              onSubmit={(event) => {
+                event.preventDefault();
+                toast({ title: 'Wiadomość wysłana', description: 'Odpowiemy w ciągu 24 godzin roboczych.' });
+                setForm({ name: '', email: '', topic: 'Zamówienie', message: '' });
+              }}
+            >
+              <div className="grid gap-4 sm:grid-cols-2">
+                <div className="space-y-1.5">
+                  <Label htmlFor="name">Imię i nazwisko</Label>
+                  <Input id="name" required value={form.name} onChange={update('name')} />
+                </div>
+                <div className="space-y-1.5">
+                  <Label htmlFor="email">E-mail</Label>
+                  <Input id="email" type="email" required value={form.email} onChange={update('email')} />
+                </div>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="topic">Temat</Label>
+                <select
+                  id="topic"
+                  value={form.topic}
+                  onChange={update('topic')}
+                  className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                >
+                  <option>Zamówienie</option>
+                  <option>Dostawa</option>
+                  <option>Zwrot lub reklamacja</option>
+                  <option>Doradztwo wnętrz</option>
+                  <option>Współpraca</option>
+                </select>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="message">Wiadomość</Label>
+                <Textarea id="message" rows={5} required value={form.message} onChange={update('message')} />
+              </div>
+              <Button type="submit">
+                <Send className="mr-2 h-4 w-4" /> Wyślij wiadomość
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
 }

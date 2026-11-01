@@ -1,34 +1,16 @@
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  reactStrictMode: true,
+  poweredByHeader: false,
+  allowedDevOrigins: ['*.e2b.app', 'localhost:9002'],
   images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**',
-      },
-    ],
+    formats: ['image/avif', 'image/webp'],
+    deviceSizes: [360, 480, 640, 768, 1024, 1280, 1536],
+    minimumCacheTTL: 60 * 60 * 24 * 30,
+  },
+  experimental: {
+    optimizePackageImports: ['lucide-react'],
   },
 };
 

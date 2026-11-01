@@ -1,72 +1,65 @@
-'use client';
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import { PageHeader, Prose } from '@/components/shared/page-header';
+import { Button } from '@/components/ui/button';
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Package, RefreshCw, Truck } from "lucide-react";
+export const metadata: Metadata = {
+  title: 'Dostawa i zwroty',
+  description: 'Koszty dostawy, terminy, wniesienie mebli oraz zasady zwrotów i reklamacji.',
+};
 
 export default function ShippingReturnsPage() {
-    return (
-        <div className="container py-12 md:py-16">
-            <div className="text-center mb-12">
-                <h1 className="text-4xl font-bold tracking-tight">Dostawa i Zwroty</h1>
-                <p className="mt-2 text-lg text-muted-foreground">
-                    Wszystko, co musisz wiedzieć o wysyłce i zwrotach w BuyNest.
-                </p>
-            </div>
-            
-            <div className="max-w-4xl mx-auto">
-                <Accordion type="multiple" defaultValue={['shipping', 'returns']} className="w-full">
-                    <AccordionItem value="shipping">
-                        <AccordionTrigger className="text-2xl font-semibold">
-                            <div className="flex items-center gap-3">
-                                <Truck className="h-6 w-6" />
-                                Opcje Dostawy
-                            </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="pt-4 prose max-w-none prose-p:text-muted-foreground">
-                            <p>Oferujemy kilka opcji dostawy, aby zapewnić wygodę i szybkość:</p>
-                            <ul>
-                                <li><strong>Dostawa standardowa (3-5 dni roboczych):</strong> Darmowa dla wszystkich zamówień.</li>
-                                <li><strong>Dostawa ekspresowa (1-2 dni robocze):</strong> Dostępna za dodatkową opłatą w wysokości 19.99 zł.</li>
-                                <li><strong>Odbiór w punkcie:</strong> Możliwość odbioru w wybranych punktach partnerskich (InPost, Żabka, Orlen).</li>
-                            </ul>
-                            <p>Wszystkie nasze przesyłki są ubezpieczone i starannie zapakowane, aby dotarły do Ciebie w nienaruszonym stanie.</p>
-                        </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="packaging">
-                        <AccordionTrigger className="text-2xl font-semibold">
-                           <div className="flex items-center gap-3">
-                                <Package className="h-6 w-6" />
-                                Śledzenie Zamówienia
-                            </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="pt-4 prose max-w-none prose-p:text-muted-foreground">
-                            <p>Po złożeniu zamówienia otrzymasz e-mail z potwierdzeniem oraz linkiem do śledzenia przesyłki. Dzięki temu będziesz mógł na bieżąco monitorować status dostawy.</p>
-                            <p>Status zamówienia możesz również sprawdzić w panelu klienta w sekcji "Moje zamówienia".</p>
-                        </AccordionContent>
-                    </AccordionItem>
-                    
-                    <AccordionItem value="returns">
-                        <AccordionTrigger className="text-2xl font-semibold">
-                             <div className="flex items-center gap-3">
-                                <RefreshCw className="h-6 w-6" />
-                                Polityka Zwrotów
-                            </div>
-                        </AccordionTrigger>
-                        <AccordionContent className="pt-4 prose max-w-none prose-p:text-muted-foreground">
-                            <p>Twoje zadowolenie jest dla nas priorytetem. Jeśli z jakiegoś powodu produkt nie spełnia Twoich oczekiwań, masz <strong>30 dni</strong> na jego zwrot bez podawania przyczyny.</p>
-                            <h4>Jak dokonać zwrotu?</h4>
-                            <ol>
-                                <li>Zaloguj się na swoje konto i przejdź do sekcji "Moje zamówienia".</li>
-                                <li>Wybierz zamówienie, które chcesz zwrócić i kliknij "Zwróć produkty".</li>
-                                <li>Postępuj zgodnie z instrukcjami, aby wygenerować etykietę zwrotną.</li>
-                                <li>Zapakuj produkt i nadaj przesyłkę w dowolnym punkcie przewoźnika.</li>
-                            </ol>
-                            <p>Zwrot środków nastąpi w ciągu 14 dni od otrzymania przez nas przesyłki. Pamiętaj, że zwracany towar nie może nosić śladów użytkowania i powinien posiadać oryginalne opakowanie.</p>
-                        </AccordionContent>
-                    </AccordionItem>
-                </Accordion>
-            </div>
+  return (
+    <div>
+      <PageHeader
+        title="Dostawa i zwroty"
+        description="Przejrzyste zasady: dostawa od 49 zł, darmowa od 2500 zł, 60 dni na zwrot i odbiór po naszej stronie."
+        breadcrumbs={[{ href: '/shipping-returns', label: 'Dostawa i zwroty' }]}
+      />
+      <div className="container py-10 md:py-14">
+        <Prose>
+          <h2>Koszty i terminy dostawy</h2>
+          <ul>
+            <li><strong>Standardowa:</strong> 49 zł, darmowa od 2500 zł, 2–4 dni robocze.</li>
+            <li><strong>Ekspresowa:</strong> 99 zł, dostawa 1–2 dni robocze (zamówienie do 12:00).</li>
+            <li><strong>Odbiór w showroomie:</strong> bezpłatny, Warszawa ul. Prosta 12, tego samego dnia od 12:00.</li>
+            <li><strong>Meble na zamówienie:</strong> około 3 tygodni, termin potwierdzamy e-mailem.</li>
+          </ul>
+
+          <h2>Wniesienie i montaż</h2>
+          <p>
+            Standardowa dostawa obejmuje wniesienie mebla do wskazanego pomieszczenia. Montaż jest bezpłatny w
+            Warszawie, Krakowie, Wrocławiu i Gdańsku. W pozostałych miastach kosztuje 149 zł i można go dodać w koszyku.
+          </p>
+
+          <h2>Zwroty</h2>
+          <p>
+            Masz 60 dni od dostawy na zwrot bez podania przyczyny. Zgłoszenie przyjmujemy w panelu klienta lub przez
+            formularz kontaktowy. Odbiór przesyłki organizujemy sami, a zwrot środków następuje w ciągu 5 dni roboczych
+            od odebrania paczki. Produkt powinien być kompletny i bez śladów użytkowania.
+          </p>
+
+          <h2>Reklamacje</h2>
+          <p>
+            Jeśli produkt dotarł uszkodzony lub ma wadę, zgłoś to w ciągu 14 dni. Do zgłoszenia dołącz zdjęcia —
+            rozpatrujemy sprawę w 7 dni roboczych. Drobne części zamienne wysyłamy w 48 h na nasz koszt.
+          </p>
+
+          <h2>Śledzenie przesyłki</h2>
+          <p>
+            Numer listu przewozowego znajdziesz w e-mailu z potwierdzeniem wysyłki oraz w{' '}
+            <Link href="/dashboard/orders" className="text-foreground underline">panelu klienta</Link>.
+          </p>
+        </Prose>
+        <div className="mt-10 flex flex-wrap gap-2">
+          <Button asChild>
+            <Link href="/shop">Wróć do sklepu</Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link href="/contact">Zgłoś zwrot</Link>
+          </Button>
         </div>
-    );
+      </div>
+    </div>
+  );
 }

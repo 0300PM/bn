@@ -1,65 +1,100 @@
 'use client';
 
-import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import Cookies from 'js-cookie';
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
+import { readStorage, writeStorage } from '@/lib/storage';
 
-interface User {
+const AUTH_KEY = 'buynest.user.v2';
+
+export type User = {
   id: string;
   name: string;
   email: string;
-  avatarUrl?: string;
-}
+  phone?: string;
+  city?: string;
+  createdAt: string;
+};
 
-interface AuthContextType {
+type AuthContextValue = {
   user: User | null;
-  login: (userData: User) => void;
+  isReady: boolean;
+  login: (email: string, password: string) => { ok: boolean; message?: string };
+  signup: (data: { name: string; email: string; password: string }) => { ok: boolean; message?: string };
   logout: () => void;
-  isLoading: boolean;
-}
+  updateProfile: (data: Partial<User>) => void;
+};
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
-const AUTH_COOKIE_KEY = 'buynest-auth-user';
-
-export const AuthProvider = ({ children }: { children: ReactNode }) => {
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    try {
-      const userFromCookie = Cookies.get(AUTH_COOKIE_KEY);
-      if (userFromCookie) {
-        setUser(JSON.parse(userFromCookie));
-      }
-    } catch (error) {
-      console.error('Failed to parse auth cookie', error);
-      Cookies.remove(AUTH_COOKIE_KEY);
-    } finally {
-      setIsLoading(false);
-    }
+    setUser(readStorage<User | null>(AUTH_KEY, null));
+    setIsReady(true);
   }, []);
 
-  const login = (userData: User) => {
-    setUser(userData);
-    Cookies.set(AUTH_COOKIE_KEY, JSON.stringify(userData), { expires: 7 });
-  };
+  const persist = useCallback((next: User | null) => {
+    setUser(next);
+    writeStorage(AUTH_KEY, next);
+  }, []);
 
-  const logout = () => {
-    setUser(null);
-    Cookies.remove(AUTH_COOKIE_KEY);
-  };
-
-  return (
-    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
-      {!isLoading && children}
-    </AuthContext.Provider>
+  const login = useCallback(
+    (email: string, password: string) => {
+      if (!email.includes('@') || password.length < 4) {
+        return { ok: false, message: 'Podaj poprawny adres e-mail i hasło (min. 4 znaki).' };
+      }
+      const name = email.split('@')[0].replace(/[._-]/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+      persist({
+        id: 'demo-user',
+        name,
+        email,
+        city: 'Warszawa',
+        createdAt: new Date().toISOString(),
+      });
+      return { ok: true };
+    },
+    [persist],
   );
+
+  const signup = useCallback(
+    ({ name, email, password }: { name: string; email: string; password: string }) => {
+      if (name.trim().length < 2) return { ok: false, message: 'Podaj imię i nazwisko.' };
+      if (!email.includes('@')) return { ok: false, message: 'Podaj poprawny adres e-mail.' };
+      if (password.length < 6) return { ok: false, message: 'Hasło musi mieć co najmniej 6 znaków.' };
+      persist({ id: 'demo-user', name, email, createdAt: new Date().toISOString() });
+      return { ok: true };
+    },
+    [persist],
+  );
+
+  const logout = useCallback(() => persist(null), [persist]);
+
+  const updateProfile = useCallback(
+    (data: Partial<User>) => {
+      if (!user) return;
+      persist({ ...user, ...data });
+    },
+    [persist, user],
+  );
+
+  const value = useMemo(
+    () => ({ user, isReady, login, signup, logout, updateProfile }),
+    [user, isReady, login, signup, logout, updateProfile],
+  );
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
+  if (!context) throw new Error('useAuth musi być użyty wewnątrz AuthProvider');
   return context;
 };

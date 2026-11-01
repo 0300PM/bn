@@ -1,33 +1,37 @@
 'use client';
-import { ProductCard } from '@/components/products/product-card';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { useWishlist } from '@/contexts/wishlist-context';
+
+import Link from 'next/link';
 import { Heart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { ProductCard } from '@/components/products/product-card';
+import { useWishlist } from '@/contexts/wishlist-context';
 
 export default function DashboardWishlistPage() {
-    const { wishlist } = useWishlist();
+  const { wishlist } = useWishlist();
 
-    return (
-        <Card>
-            <CardHeader>
-                <CardTitle>Twoja lista życzeń</CardTitle>
-                <CardDescription>Produkty, które Cię zainspirowały.</CardDescription>
-            </CardHeader>
-            <CardContent>
-                 {wishlist.length > 0 ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {wishlist.map(product => (
-                            <ProductCard key={product.id} product={product} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="text-center py-12 border-2 border-dashed rounded-lg">
-                        <Heart className="mx-auto h-12 w-12 text-muted-foreground" />
-                        <h3 className="mt-4 text-lg font-medium">Twoja lista życzeń jest pusta</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">Dodaj produkty, które Ci się podobają, aby je zapisać na później.</p>
-                    </div>
-                )}
-            </CardContent>
-        </Card>
-    );
+  return (
+    <div className="space-y-4">
+      <header>
+        <h1 className="text-2xl font-bold tracking-tight">Lista życzeń</h1>
+        <p className="mt-1 text-sm text-muted-foreground">Produkty zapisane na później.</p>
+      </header>
+
+      {wishlist.length === 0 ? (
+        <div className="rounded-lg border border-dashed py-16 text-center">
+          <Heart className="mx-auto h-8 w-8 text-muted-foreground" />
+          <p className="mt-3 font-medium">Jeszcze nic tu nie ma</p>
+          <p className="mt-1 text-sm text-muted-foreground">Kliknij serce na produkcie, aby go zapisać.</p>
+          <Button asChild className="mt-5" size="sm">
+            <Link href="/shop">Przeglądaj produkty</Link>
+          </Button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 gap-4 xl:grid-cols-3">
+          {wishlist.map((product) => (
+            <ProductCard key={product.id} product={product} compact />
+          ))}
+        </div>
+      )}
+    </div>
+  );
 }
