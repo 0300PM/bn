@@ -38,7 +38,7 @@ const payments = ['BLIK', 'Visa', 'Mastercard', 'Przelewy24', 'Apple Pay'];
 
 export function Footer() {
   return (
-    <footer className="border-t bg-muted/60">
+    <footer className="border-t bg-muted/60 pb-16 md:pb-0">
       <div className="container py-12 lg:py-16">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_repeat(3,minmax(0,1fr))]">
           <div className="space-y-5">
